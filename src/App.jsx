@@ -123,9 +123,9 @@ const missions = [
 ];
 
 const certificates = [
-  { number: '01', title: 'Gamelab Indonesia Industry Visit', issuer: 'Gamelab Indonesia', year: '2025', image: '/images/certificates/gamelab.svg' },
-  { number: '02', title: 'GLOW#321 Participation', issuer: 'GameLAB Indonesia', year: '2025', image: '/images/certificates/gamelab2.svg' },
-  { number: '03', title: 'Dicoding METC Participation', issuer: 'Dicoding Indonesia', year: '2025', image: '/images/certificates/dicoding.svg' },
+  { number: '01', title: 'Gamelab Indonesia Industry Visit', issuer: 'Gamelab Indonesia', year: '2025', image: '/images/certificates/gamelab.webp' },
+  { number: '02', title: 'GLOW#321 Participation', issuer: 'GameLAB Indonesia', year: '2025', image: '/images/certificates/gamelab2.webp' },
+  { number: '03', title: 'Dicoding METC Participation', issuer: 'Dicoding Indonesia', year: '2025', image: '/images/certificates/dicoding.webp' },
 ];
 
 const socialLinks = [
