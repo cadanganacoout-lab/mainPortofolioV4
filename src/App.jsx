@@ -69,7 +69,7 @@ const projectData = [
     title: 'GateWay',
     description: 'A gateway website that brings all of my projects together.',
     technologies: ['HTML', 'CSS', 'JS'],
-    href: 'https://pageoflang.vercel.app/',
+    href: 'https://myportals.vercel.app/',
     visual: 'gateway',
     visualLabel: 'GATEWAY',
     visualNote: 'One place for all my projects.',
