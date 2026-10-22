@@ -59,22 +59,39 @@ a {
 }
 
 .brand-mark {
-  position: relative;
   display: inline-flex;
   align-items: center;
-  font-size: 1.7rem;
-  font-weight: 700;
-  letter-spacing: -0.08em;
+  gap: 0.65rem;
   color: var(--text);
+  font-size: 0.98rem;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
 }
 
-.brand-mark span {
-  margin-left: -0.05em;
-  opacity: 0.8;
+.brand-mark img {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 5px 12px rgba(128, 107, 255, 0.2));
+}
+
+html.dark .brand-mark img {
+  filter: invert(1) drop-shadow(0 5px 12px rgba(128, 107, 255, 0.2));
+}
+
+.brand-mark strong {
+  font-weight: 700;
 }
 
 .brand-mark-small {
-  font-size: 1.35rem;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+}
+
+.brand-mark-small img {
+  width: 2rem;
+  height: 2rem;
 }
 
 .nav-link {

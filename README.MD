@@ -46,7 +46,20 @@ public/
   images/certificates/   Certificate artwork
   music/                 Local background music
 src/
-  App.jsx                Portfolio sections and interactions
+  components/
+    layout/
+      SiteHeader.jsx     Navigation, theme toggle, and music player
+      SiteFooter.jsx     Site footer
+    sections/
+      HeroSection.jsx
+      AboutSection.jsx
+      ProjectsSection.jsx
+      JourneySection.jsx
+      CertificatesSection.jsx
+      ContactSection.jsx
+  data/
+    portfolio.js         Portfolio content and navigation/social data
+  App.jsx                Page composition
   index.css              Tailwind import and custom styling
   main.jsx               React entry point
 index.html               HTML document
