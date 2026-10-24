@@ -13,8 +13,8 @@ function AboutSection() {
           </h2>
         </div>
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-6">
+        <div className="about-grid mt-10 grid gap-8">
+          <div className="about-story space-y-6 reveal">
             <p className="text-lg leading-8 text-[var(--muted)]">
               I became interested in computers in junior high, when I tinkered
               with a personal blog and wondered how a webpage could feel
@@ -40,7 +40,7 @@ function AboutSection() {
             </div>
           </div>
 
-          <div className="space-y-6">
+          <div className="about-highlights space-y-6 reveal">
             <div className="vision-card">
               <span className="code-note-label">VISION</span>
               <p>

@@ -7,9 +7,11 @@ A responsive, single-page personal portfolio built with React, Vite, and Tailwin
 - Responsive layout with Home, About, Projects, Journey, Certificates, and Contact sections
 - Sticky navigation and dark/light theme toggle
 - Subtle entrance animations with Framer Motion
+- Scroll reveals and motion preferences that respect `prefers-reduced-motion`
 - Compact music player in the navbar with play/pause, mute, and volume controls
 - Local MP3 playback from `public/music/8 Letters - Why Don't We [Official Music Video].mp3`
 - Locally stored certificate artwork in `public/images/certificates`
+- Contact form delivered by the Vercel serverless API and Resend
 
 ## Tech stack
 
@@ -39,12 +41,28 @@ npm run build
 npm run preview
 ```
 
+## Contact form setup
+
+The contact form uses `api/contact.js` and Resend. Add these environment variables to the Vercel project for each environment you use:
+
+- `RESEND_API_KEY`: Resend API key
+- `CONTACT_FROM_EMAIL`: sender address verified with Resend, for example `Portfolio <hello@your-domain.com>`
+- `CONTACT_TO_EMAIL`: inbox that should receive messages
+
+`.env.example` lists the required variable names. For local form testing, use Vercel's local development command (`vercel dev`) so the `/api/contact` function is available; `vite dev` serves only the frontend. Never add real API keys to source control.
+
+The endpoint validates and limits submitted fields, uses a honeypot and minimum completion time for basic spam protection, and returns explicit errors if email delivery is not configured or fails.
+
+Project case-study narratives are intentionally marked as pending until verified project-specific details are available. Add only factual values under each project's optional `caseStudy` object (`problem`, `role`, `challenge`, `solution`, `outcome`) in `src/data/portfolio.js`; the modal only displays populated fields.
+
 ## Project structure
 
 ```text
 public/
   images/certificates/   Certificate artwork
   music/                 Local background music
+api/
+  contact.js             Resend-backed contact form endpoint
 src/
   components/
     layout/

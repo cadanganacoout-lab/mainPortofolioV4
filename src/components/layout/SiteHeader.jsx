@@ -76,7 +76,7 @@ function SiteHeader() {
         loop
       />
 
-      <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[var(--panel)]/80 backdrop-blur-xl">
+      <header className="site-header fixed inset-x-0 top-0 z-50 border-b border-[var(--line)] bg-[var(--panel)]/80 backdrop-blur-xl">
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <a href="#home" className="brand-mark" aria-label="Gilang Faid — back to top">
             <img

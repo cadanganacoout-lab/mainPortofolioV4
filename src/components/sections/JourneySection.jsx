@@ -2,10 +2,13 @@ import { CodeXml } from "lucide-react";
 import {
   educationData,
   skillData,
+  skillGroups,
   toolList,
 } from "../../data/portfolio";
 
 function JourneySection() {
+  const marqueeTools = [...toolList, ...toolList];
+
   return (
     <section id="journey" className="section-space">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -59,6 +62,19 @@ function JourneySection() {
                 <span>ALWAYS IN PROGRESS</span>
               </div>
 
+              <div className="skill-group-grid">
+                {skillGroups.map((group) => (
+                  <div key={group.title} className="skill-group-card">
+                    <h4>{group.title}</h4>
+                    <div className="skill-group-list">
+                      {group.items.map((item) => (
+                        <span key={item}>{item}</span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
               <div className="skill-grid">
                 {skillData.map((skill) => (
                   <div key={skill.name} className="skill-item">
@@ -73,10 +89,12 @@ function JourneySection() {
                 ))}
               </div>
 
-              <div className="tool-list" aria-label="Tools I use">
-                {toolList.map((tool) => (
-                  <span key={tool}>{tool}</span>
-                ))}
+              <div className="marquee-wrap" aria-label="Tools I use">
+                <div className="marquee-track">
+                  {marqueeTools.map((tool, index) => (
+                    <span key={`${tool}-${index}`} className="tool-pill">{tool}</span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

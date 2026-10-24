@@ -1,23 +1,47 @@
+import { useState } from "react";
 import {
   ArrowDown,
   ArrowUpRight,
+  Check,
   CodeXml,
+  Copy,
   MapPin,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { emailAddress } from "../../data/portfolio";
 
 function HeroSection() {
+  const [copied, setCopied] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(emailAddress);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1600);
+    } catch {
+      const fallback = document.createElement("textarea");
+      fallback.value = emailAddress;
+      document.body.appendChild(fallback);
+      fallback.select();
+      document.execCommand("copy");
+      document.body.removeChild(fallback);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1600);
+    }
+  };
+
   return (
     <section id="home" className="section-shell">
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pb-10 pt-12 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:pb-16 lg:pt-20">
         <motion.div
-          initial="hidden"
+          initial={prefersReducedMotion ? false : "hidden"}
           animate="visible"
           variants={{
             hidden: { opacity: 0, y: 18 },
             visible: { opacity: 1, y: 0 },
           }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.5 }}
           className="space-y-7"
         >
           <span className="eyebrow">
@@ -42,9 +66,24 @@ function HeroSection() {
               View my work
               <ArrowDown size={16} />
             </a>
-            <a href="mailto:cadanganacoout@gmail.com" className="text-link">
+            <a href="#contact" className="text-link">
               Let’s connect
               <ArrowUpRight size={16} />
+            </a>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={handleCopyEmail}
+              className="copy-button"
+              aria-label="Copy email address"
+            >
+              {copied ? <Check size={15} /> : <Copy size={15} />}
+              {copied ? "Email copied" : "Copy email"}
+            </button>
+            <a href="mailto:cadanganacoout@gmail.com" className="text-link">
+              {emailAddress}
             </a>
           </div>
 
@@ -55,9 +94,9 @@ function HeroSection() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, x: 18 }}
+          initial={prefersReducedMotion ? false : { opacity: 0, x: 18 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.6 }}
           className="relative mx-auto w-full max-w-[520px]"
         >
           <div className="orb orb-one" />

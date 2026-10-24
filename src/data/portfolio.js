@@ -1,6 +1,8 @@
 import { BriefcaseBusiness, Camera, Globe } from "lucide-react";
 import { FaDiscord } from "react-icons/fa6";
 
+export const emailAddress = "cadanganacoout@gmail.com";
+
 export const navItems = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
@@ -67,6 +69,21 @@ export const projectData = [
     visual: "edufuture",
     visualLabel: "EDUFUTURE",
     visualNote: "One place for all my projects.",
+  },
+];
+
+export const skillGroups = [
+  {
+    title: "Frontend",
+    items: ["HTML", "CSS", "JavaScript", "React.js", "Tailwind CSS"],
+  },
+  {
+    title: "Design",
+    items: ["Figma", "UI Design", "UX Thinking", "Responsive Design"],
+  },
+  {
+    title: "Tools",
+    items: ["Git & GitHub", "Vercel", "VS Code", "XAMPP", "Laragon"],
   },
 ];
 

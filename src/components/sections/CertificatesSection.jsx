@@ -6,7 +6,7 @@ function CertificatesSection() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="section-topline">
           <div className="section-heading">
-            <p className="eyebrow">04 / CERTIFICATES</p>
+            <p className="eyebrow">04 / SOCIAL PROOF</p>
             <h2>
               Experiences that
               <br />
@@ -14,13 +14,13 @@ function CertificatesSection() {
             </h2>
           </div>
           <p className="section-side-note">
-            Activities and milestones from my learning journey.
+            Activities and milestones that show my growth, curiosity, and commitment to learning.
           </p>
         </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
+        <div className="certificate-grid mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {certificates.map((certificate) => (
-            <div key={certificate.number} className="certificate-card">
+            <div key={certificate.number} className="certificate-card reveal">
               <div className="certificate-image-wrap">
                 <img
                   src={certificate.image}
@@ -37,6 +37,13 @@ function CertificatesSection() {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="achievement-summary">
+          <div>
+            <span className="code-note-label">ACTIVE GROWTH</span>
+            <strong>Developing skills through real projects, competitions, and learning communities.</strong>
+          </div>
         </div>
       </div>
     </section>
