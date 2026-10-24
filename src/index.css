@@ -405,6 +405,18 @@ html.dark .brand-mark img {
   }
 }
 
+@media (max-width: 640px) {
+  .music-popover {
+    position: fixed;
+    top: 5rem;
+    right: max(1rem, env(safe-area-inset-right));
+    left: max(1rem, env(safe-area-inset-left));
+    width: auto;
+    max-height: calc(100dvh - 6rem);
+    overflow-y: auto;
+  }
+}
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
