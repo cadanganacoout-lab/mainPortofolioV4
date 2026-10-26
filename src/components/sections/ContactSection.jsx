@@ -49,7 +49,22 @@ function ContactSection() {
           formStartedAt: formStartedAt.current,
         }),
       });
-      const result = await response.json();
+      const responseText = await response.text();
+      let result;
+
+      try {
+        result = responseText ? JSON.parse(responseText) : null;
+      } catch {
+        result = null;
+      }
+
+      if (!result || typeof result !== "object" || Array.isArray(result)) {
+        throw new Error(
+          response.ok
+            ? "The contact service returned an empty or invalid response. Please try again later."
+            : `The contact service returned an invalid response (HTTP ${response.status}). Please try again later.`,
+        );
+      }
 
       if (!response.ok) {
         throw new Error(result.error || "Message could not be sent. Please try again.");

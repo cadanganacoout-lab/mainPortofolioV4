@@ -1,4 +1,6 @@
-import { CodeXml } from "lucide-react";
+import { 
+  CodeXml
+} from "lucide-react";
 import {
   educationData,
   skillData,

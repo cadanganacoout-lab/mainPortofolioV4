@@ -10,6 +10,7 @@ import ProjectsSection from "./components/sections/ProjectsSection";
 
 function App() {
   useEffect(() => {
+    document.title = "Gilang Faid";
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
