@@ -94,7 +94,7 @@ export default async function handler(req, res) {
 
     if (!providerResponse.ok) {
       console.error("Resend email request failed with status", providerResponse.status);
-      return respond(res, 502, { error: "Message could not be sent. Please try again later." });
+      return respond(res, 502, { error: "Message could not be sent (no status). Please try again later." });
     }
 
     return respond(res, 200, { ok: true });
