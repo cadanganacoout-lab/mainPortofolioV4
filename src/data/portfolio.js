@@ -1,14 +1,14 @@
 import { BriefcaseBusiness, Camera, Globe } from "lucide-react";
 import { FaDiscord } from "react-icons/fa6";
 
-export const emailAddress = "cadanganacoout@gmail.com";
+export const emailAddress = "langgdeveloper@gmail.com";
 
 export const navItems = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Projects", href: "#work" },
   { label: "Journey", href: "#journey" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "#contact" }, 
 ];
 
 export const projectData = [
@@ -83,7 +83,7 @@ export const skillGroups = [
   },
   {
     title: "Tools",
-    items: ["Git & GitHub", "Vercel", "VS Code", "XAMPP", "Laragon"],
+    items: ["Git & GitHub", "Vercel", "VS Code", "XAMPP", "Laragon", "Herd"],
   },
 ];
 
