@@ -1802,7 +1802,7 @@ body.reveal-ready .reveal.is-visible {
   }
 
   .contact-cta-row .copy-button {
-    flex: 0 0 auto;
+    flex: 1 1 12rem;
   }
 }
 
