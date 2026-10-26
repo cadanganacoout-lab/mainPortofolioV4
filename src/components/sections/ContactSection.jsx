@@ -90,7 +90,7 @@ function ContactSection() {
             </p>
 
             <div className="contact-cta-row">
-              <a href="mailto:cadanganacoout@gmail.com" className="button-dark">
+              <a href="mailto:langgdeveloper@gmail.com" className="button-dark">
                 <Mail size={16} />
                 Send me an email
                 <ArrowUpRight size={16} />
