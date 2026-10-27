@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { ArrowUpRight, Check, Copy, LoaderCircle, Mail } from "lucide-react";
 import { emailAddress, socialLinks } from "../../data/portfolio";
+import { FaWhatsapp } from "react-icons/fa6";
 
 function ContactSection() {
   const [formData, setFormData] = useState({
@@ -234,6 +235,7 @@ function ContactSection() {
                 rel="noreferrer"
                 className="contact-link"
               >
+                <FaWhatsapp size={16} />
                 WhatsApp
                 <ArrowUpRight size={14} />
               </a>

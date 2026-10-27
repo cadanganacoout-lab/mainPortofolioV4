@@ -1,5 +1,14 @@
-import { BriefcaseBusiness, Camera, Globe } from "lucide-react";
-import { FaDiscord } from "react-icons/fa6";
+import { 
+  BriefcaseBusiness,
+  Camera,
+  Globe 
+} from "lucide-react";
+import { 
+  FaDiscord,
+  FaGithub,
+  FaLinkedin,
+  FaInstagram,
+} from "react-icons/fa6";
 
 export const emailAddress = "langgdeveloper@gmail.com";
 
@@ -76,6 +85,10 @@ export const skillGroups = [
   {
     title: "Frontend",
     items: ["HTML", "CSS", "JavaScript", "React.js", "Tailwind CSS"],
+  },
+  {
+    title: "Backend",
+    items: ["Node.js", "Express.js", "PHP", "MySQL", "Laravel", "MongoDB", "Subabase"],
   },
   {
     title: "Design",
@@ -159,17 +172,17 @@ export const socialLinks = [
   {
     label: "GitHub",
     href: "https://github.com/cadanganacoout-lab",
-    icon: Globe,
+    icon: FaGithub,
   },
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/gilang-nur-naulida-faid-080233400/",
-    icon: BriefcaseBusiness,
+    icon: FaLinkedin,
   },
   {
     label: "Instagram",
     href: "https://www.instagram.com/gilanzq_/",
-    icon: Camera,
+    icon: FaInstagram,
   },
   {
     label: "Discord",
