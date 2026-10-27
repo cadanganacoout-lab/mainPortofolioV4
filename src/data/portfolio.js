@@ -15,7 +15,7 @@ export const projectData = [
   {
     number: "01",
     category: "Class website",
-    title: "Website Kelas XI RPL",
+    title: "Website XI RPL class",
     description:
       "A class profile website for XI RPL at SMK PGRI 2 Ponorogo, featuring students, teachers, and class activities.",
     technologies: ["HTML", "CSS", "JS"],
@@ -39,7 +39,7 @@ export const projectData = [
   {
     number: "03",
     category: "Class app",
-    title: "Aplikasi Kelas XI RPL",
+    title: "App mobile class XI RPL",
     description:
       "An app for XI RPL at SMK PGRI 2 Ponorogo, made as a keepsake before we go our separate ways for internships.",
     technologies: ["Dart", "Flutter"],
