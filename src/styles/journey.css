@@ -1,0 +1,223 @@
+.journey-grid {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+  grid-template-columns: 1fr;
+}
+
+.learning-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 2rem;
+  padding: 0.9rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.journey-intro h2 {
+  max-width: 12ch;
+  font-size: clamp(2.1rem, 3.2vw, 4rem);
+  line-height: 0.92;
+  letter-spacing: -0.08em;
+  overflow-wrap: break-word;
+}
+
+.journey-intro h2 span {
+  color: var(--muted);
+}
+
+.journey-intro p {
+  max-width: 33rem;
+  margin-top: 1rem;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.journey-details {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.detail-block {
+  border-radius: 1.5rem;
+  padding: 1.2rem;
+}
+
+.detail-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.detail-heading h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  letter-spacing: -0.04em;
+}
+
+.detail-heading span {
+  max-width: 100%;
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.education-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.education-list li {
+  display: grid;
+  gap: 0.6rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.education-list li span {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.education-list li strong {
+  display: block;
+  font-size: 1.08rem;
+  letter-spacing: -0.04em;
+}
+
+.education-list li p {
+  margin: 0;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.skill-grid {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.skill-item {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.skill-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.skill-bar {
+  position: relative;
+  overflow: hidden;
+  height: 0.55rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+}
+
+.skill-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), rgba(99, 121, 255, 0.8));
+}
+
+.tool-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+.tool-list span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.certificate-card {
+  min-width: 0;
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+.certificate-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.certificate-image-wrap {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: rgba(255,255,255,0.03);
+}
+
+.certificate-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.certificate-content {
+  min-width: 0;
+  padding: 1rem 1rem 1.2rem;
+}
+
+.certificate-content span {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.certificate-content h3 {
+  margin: 0.45rem 0 0.4rem;
+  font-size: 1.2rem;
+  letter-spacing: -0.05em;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.certificate-content p {
+  margin: 0;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 640px) {
+  .certificate-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .certificate-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+

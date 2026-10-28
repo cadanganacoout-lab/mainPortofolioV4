@@ -1,0 +1,178 @@
+@media (max-width: 640px) {
+  .contact-form-grid,
+  .project-modal-grid,
+  .contact-form-actions {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .contact-form-actions {
+    gap: 0.75rem;
+  }
+
+  .copy-button,
+  .button-primary,
+  .button-dark,
+  .text-link {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .contact-form input,
+  .contact-form textarea,
+  .button-primary,
+  .button-dark,
+  .copy-button {
+    font-size: 0.95rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    min-width: 0;
+  }
+
+  .project-modal {
+    width: 100%;
+    max-height: calc(100dvh - 2rem);
+    padding: 1rem;
+  }
+
+  .project-modal-header {
+    padding-right: 2.5rem;
+  }
+
+  .project-modal-close {
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+
+  .project-modal-actions {
+    align-items: stretch;
+  }
+
+  .project-modal-actions > * {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .text-link {
+    word-break: break-word;
+  }
+
+  .contact-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .contact-cta-row .button-dark,
+  .contact-cta-row .copy-button {
+    width: auto;
+    min-height: 3.4rem;
+  }
+
+  .contact-cta-row .button-dark {
+    flex: 1 1 12rem;
+  }
+
+  .contact-cta-row .copy-button {
+    flex: 1 1 12rem;
+  }
+}
+
+.footer-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.footer-hire-link,
+.footer-copy-button {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 9999px;
+  padding: 0.55rem 0.85rem;
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.footer-hire-link {
+  background: var(--highlight);
+  color: var(--page-bg);
+}
+
+.footer-copy-button {
+  background: transparent;
+  cursor: pointer;
+}
+
+.footer-hire-link:hover,
+.footer-copy-button:hover {
+  transform: translateY(-1px);
+}
+
+.project-card,
+.certificate-card {
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.project-card:hover,
+.certificate-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 46px var(--shadow);
+}
+
+.marquee-wrap:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *:not(
+      :is(
+        .site-header,
+        .site-header *,
+        .mobile-menu-trigger,
+        .mobile-menu-backdrop,
+        .mobile-menu-panel,
+        .mobile-menu-panel *
+      )
+    ),
+  *:not(
+      :is(
+        .site-header,
+        .site-header *,
+        .mobile-menu-trigger,
+        .mobile-menu-backdrop,
+        .mobile-menu-panel,
+        .mobile-menu-panel *
+      )
+    )::before,
+  *:not(
+      :is(
+        .site-header,
+        .site-header *,
+        .mobile-menu-trigger,
+        .mobile-menu-backdrop,
+        .mobile-menu-panel,
+        .mobile-menu-panel *
+      )
+    )::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

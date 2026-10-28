@@ -1,0 +1,114 @@
+.skill-group-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.skill-group-card {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  padding: 0.8rem 0.9rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.skill-group-card h4 {
+  margin: 0 0 0.6rem;
+  font-size: 0.95rem;
+  letter-spacing: -0.03em;
+}
+
+.skill-group-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.skill-group-list span {
+  padding: 0.35rem 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.marquee-wrap {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 0.7rem;
+  padding: 0.7rem 0.5rem;
+  animation: marquee-scroll 18s linear infinite;
+}
+
+.tool-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: 9999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.45rem 0.7rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.achievement-summary {
+  margin-top: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 1rem 1.2rem;
+}
+
+.achievement-summary strong {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 1.1rem;
+  letter-spacing: -0.03em;
+  line-height: 1.6;
+}
+
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+body.reveal-ready .reveal {
+  opacity: 0;
+  transform: translateY(1rem);
+  transition:
+    opacity 500ms ease,
+    transform 500ms ease;
+}
+
+body.reveal-ready .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+

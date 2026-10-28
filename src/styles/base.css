@@ -1,0 +1,69 @@
+
+:root {
+  --page-bg: #f5f2ec;
+  --panel: rgba(255, 255, 255, 0.76);
+  --card: rgba(255, 255, 255, 0.72);
+  --soft-card: #f2efe8;
+  --text: #171717;
+  --muted: #494949;
+  --line: rgba(20, 20, 20, 0.12);
+  --shadow: rgba(23, 23, 23, 0.12);
+  --highlight: #111111;
+}
+
+html.dark {
+  --page-bg: #101010;
+  --panel: rgba(18, 18, 18, 0.7);
+  --card: rgba(28, 28, 28, 0.7);
+  --soft-card: #171717;
+  --text: #f6f6f6;
+  --muted: #b9b5ad;
+  --line: rgba(255, 255, 255, 0.12);
+  --shadow: rgba(0, 0, 0, 0.28);
+  --highlight: #f5f1eb;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  font-family: 'Instrument Sans', sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(255, 212, 165, 0.16), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(117, 97, 255, 0.08), transparent 32%),
+    var(--page-bg);
+  color: var(--text);
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:focus-visible {
+  outline: 2px solid #8b9cff;
+  outline-offset: 3px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+a {
+  transition: all 180ms ease;
+}
+
+#root {
+  min-height: 100vh;
+}
+

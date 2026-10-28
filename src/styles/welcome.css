@@ -1,0 +1,211 @@
+.welcome-page {
+  position: relative;
+  display: flex;
+  min-height: 100svh;
+  align-items: center;
+  overflow: hidden;
+  padding: clamp(2rem, 8vw, 8rem);
+  background:
+    linear-gradient(to bottom, transparent 0%, var(--page-bg) 73%),
+    var(--page-bg);
+  color: var(--text);
+  isolation: isolate;
+}
+
+.welcome-page::before {
+  position: absolute;
+  top: max(-50vw, -45rem);
+  left: 50%;
+  width: min(120vw, 90rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    linear-gradient(110deg, rgba(79, 75, 68, 0.38) 0 47%, transparent 53%),
+    radial-gradient(ellipse at 68% 59%, #fffefa 0%, #e5e1d9 24%, #b7b1a7 49%, #777168 68%, transparent 72%);
+  content: "";
+  pointer-events: none;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+.welcome-page::after {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 68rem 34rem at 50% -3rem, rgba(246, 244, 239, 0.32), transparent 72%),
+    linear-gradient(to bottom, transparent 0%, var(--page-bg) 72%);
+  content: "";
+  pointer-events: none;
+  z-index: -1;
+}
+
+html.dark .welcome-page::before {
+  background:
+    linear-gradient(110deg, transparent 0 47%, rgba(5, 6, 8, 0.8) 49%, rgba(5, 6, 8, 0.96) 68%),
+    radial-gradient(ellipse at 35% 59%, #e8edf5 0%, #aebbd0 23%, #59677d 48%, #252a32 68%, transparent 72%);
+}
+
+html.dark .welcome-page::after {
+  background:
+    radial-gradient(ellipse 68rem 34rem at 50% -3rem, rgba(197, 213, 238, 0.3), transparent 72%),
+    linear-gradient(to bottom, transparent 0%, var(--page-bg) 70%);
+}
+
+.welcome-content {
+  position: relative;
+  width: min(100%, 39rem);
+  z-index: 1;
+}
+
+.welcome-topline {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: clamp(3.5rem, 10vh, 7rem);
+}
+
+.welcome-identity,
+.welcome-eyebrow {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+.welcome-identity span {
+  padding: 0 0.35rem;
+  color: var(--highlight);
+}
+
+.welcome-theme-toggle {
+  position: absolute;
+  top: clamp(1rem, 3vw, 2rem);
+  right: clamp(1rem, 4vw, 3rem);
+  z-index: 2;
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 9999px;
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+}
+
+.welcome-theme-toggle:hover {
+  border-color: var(--text);
+}
+
+.welcome-eyebrow {
+  margin-bottom: 1rem;
+  color: var(--muted);
+}
+
+.welcome-content h1 {
+  margin: 0;
+  font-size: clamp(4rem, 11vw, 7.75rem);
+  font-weight: 600;
+  letter-spacing: -0.09em;
+  line-height: 0.98;
+}
+
+.welcome-content h1 span {
+  color: var(--highlight);
+}
+
+.welcome-description {
+  margin: 1.5rem 0 2rem;
+  color: var(--muted);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  line-height: 1.6;
+}
+
+.welcome-cta {
+  display: inline-flex;
+  min-height: 3.4rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0 1.25rem;
+  border: 1px solid var(--highlight);
+  border-radius: 0.7rem;
+  background: var(--highlight);
+  color: var(--page-bg);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.welcome-cta:hover {
+  transform: translateY(-2px);
+  filter: brightness(0.9);
+}
+
+.welcome-countdown {
+  position: relative;
+  width: min(100%, 22rem);
+  margin-top: 2rem;
+  outline: none;
+}
+
+.welcome-countdown:focus-visible {
+  border-radius: 0.25rem;
+}
+
+.welcome-countdown-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.6rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.welcome-progress-track {
+  height: 0.28rem;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: var(--line);
+}
+
+.welcome-progress-value {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--highlight);
+  transition: width 100ms linear;
+}
+
+.welcome-countdown-tooltip {
+  position: absolute;
+  bottom: calc(100% + 0.75rem);
+  left: 0;
+  z-index: 2;
+  width: min(20rem, calc(100vw - 4rem));
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 0.65rem;
+  background: var(--page-bg);
+  box-shadow: 0 10px 32px var(--shadow);
+  color: var(--text);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.25rem);
+  transition: opacity 160ms ease, transform 160ms ease;
+  visibility: hidden;
+}
+
+.welcome-countdown:hover .welcome-countdown-tooltip,
+.welcome-countdown:focus-visible .welcome-countdown-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
