@@ -119,12 +119,6 @@ function MusicPlaybackControls({
         </span>
       </label>
 
-      <div className="music-popover-footer">
-        <span>
-          {musicOn ? (isMuted ? "Playing · muted" : "Playing") : "Playback paused"}
-        </span>
-        <span>Local MP3</span>
-      </div>
     </div>
   );
 }

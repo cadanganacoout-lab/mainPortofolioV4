@@ -264,10 +264,11 @@
 
   .mobile-preference-controls .music-popover {
     position: static;
-    display: flex;
+    transform: translateX(-15px); 
+    display: grid;
     width: 100%;
-    align-items: center;
-    gap: 0.5rem;
+    min-width: 0;
+    gap: 0.75rem;
     max-height: none;
     overflow: visible;
     padding: 0.25rem 0 0;
@@ -280,19 +281,19 @@
 
   .mobile-preference-controls .music-popover-heading {
     min-width: 0;
-    flex: 1 1 auto;
-    gap: 0.4rem;
+    gap: 0.65rem;
   }
 
   .mobile-preference-controls .music-cover {
-    width: 1.875rem;
-    height: 1.875rem;
-    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.8rem;
   }
 
   .mobile-preference-controls .music-track {
     min-width: 0;
     flex: 1;
+    overflow: hidden;
   }
 
   .mobile-preference-controls .music-track strong,
@@ -301,12 +302,14 @@
   }
 
   .mobile-preference-controls .music-track strong {
-    font-size: 0.78rem;
+    font-size: 0.85rem;
   }
 
   .mobile-preference-controls .music-track span {
     color: var(--muted);
-    font-size: 0.62rem;
+    font-size: 0.72rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
@@ -315,43 +318,48 @@
   }
 
   .mobile-preference-controls .music-actions {
-    flex: 0 0 auto;
-    gap: 0.35rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.5rem;
     margin: 0;
   }
 
   .mobile-preference-controls .music-play-button,
   .mobile-preference-controls .music-volume-button {
-    width: 2.25rem;
-    min-height: 2.25rem;
-    flex: 0 0 auto;
+    min-height: 2.5rem;
     border-color: var(--line);
-    background: transparent;
+    border-radius: 0.75rem;
+    background: var(--page-bg);
     color: var(--text);
   }
 
   .mobile-preference-controls .music-play-button {
-    padding: 0;
+    justify-content: center;
+    padding: 0 0.75rem;
   }
 
-  .mobile-preference-controls .music-play-button span,
-  .mobile-preference-controls .music-volume-label,
-  .mobile-preference-controls .music-volume-slider-row > svg {
-    display: none;
+  .mobile-preference-controls .music-play-button span {
+    display: inline;
   }
 
-  .mobile-preference-controls .music-popover-footer {
-    display: none;
+  .mobile-preference-controls .music-volume-button {
+    width: 2.5rem;
+    justify-content: center;
   }
 
   .mobile-preference-controls .music-volume-control {
-    width: clamp(3.25rem, 18vw, 5rem);
-    flex: 0 1 5rem;
+    width: 100%;
     margin: 0;
   }
 
+  .mobile-preference-controls .music-volume-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+  }
+
   .mobile-preference-controls .music-volume-slider-row {
-    gap: 0;
+    gap: 0.5rem;
   }
 
   .mobile-preference-controls .music-volume-control input {
@@ -411,4 +419,3 @@
 .mobile-menu-panel .mobile-menu-close:focus-visible {
   transform: rotate(90deg) scale(1.035);
 }
-

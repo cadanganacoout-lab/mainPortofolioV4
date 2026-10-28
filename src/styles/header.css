@@ -143,8 +143,7 @@ html.dark .brand-mark img {
 }
 
 .music-popover-heading,
-.music-actions,
-.music-popover-footer {
+.music-actions {
   display: flex;
   align-items: center;
 }
@@ -293,27 +292,6 @@ html.dark .brand-mark img {
   outline-offset: 4px;
 }
 
-.music-popover-footer {
-  justify-content: space-between;
-  gap: 0.5rem;
-  margin-top: 0.9rem;
-  padding-top: 0.8rem;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 0.68rem;
-}
-
-.music-popover-footer a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  color: var(--text);
-}
-
-.music-popover-footer a:hover {
-  opacity: 0.7;
-}
-
 @keyframes music-wave {
   from {
     transform: scaleY(0.45);
@@ -363,4 +341,3 @@ html.dark .brand-mark img {
   background: #5dd38b;
   box-shadow: 0 0 0 6px rgba(93, 211, 139, 0.14);
 }
-
