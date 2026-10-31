@@ -109,7 +109,7 @@ export const educationData = [
   },
   {
     period: "2022 — 2025",
-    school: "MTSN Darul Huda Mayak",
+    school: "MTS Darul Huda Mayak",
     detail: "Junior high school, with a focus on character and good manners.",
   },
   {
