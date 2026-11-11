@@ -394,7 +394,7 @@ function SiteHeader() {
             aria-label="Gilang Faid — home"
           >
             <img
-              src="/images/logo/gilang-faid.svg"
+              src="/images/logo/depositphotos_73262509-stock-illustration-vector-logo-for-letter-g.webp"
               alt=""
               aria-hidden="true"
             />

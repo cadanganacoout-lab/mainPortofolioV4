@@ -5,7 +5,11 @@ function SiteFooter() {
   return (
     <footer className="route-footer">
       <Link to="/#home" className="brand-mark brand-mark-small">
-        <img src="/images/logo/gilang-faid.svg" alt="" aria-hidden="true" />
+        <img
+          src="/images/logo/depositphotos_73262509-stock-illustration-vector-logo-for-letter-g.webp"
+          alt=""
+          aria-hidden="true"
+        />
         <span>Gilang Faid</span>
       </Link>
 

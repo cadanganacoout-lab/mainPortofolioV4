@@ -10,9 +10,11 @@
 }
 
 .brand-mark img {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 3.25rem;
+  height: 3.25rem;
   flex: 0 0 auto;
+  border-radius: 50%;
+  object-fit: cover;
   filter: drop-shadow(0 5px 12px var(--shadow));
 }
 
@@ -30,8 +32,8 @@ html.dark .brand-mark img {
 }
 
 .brand-mark-small img {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
 .nav-link {
