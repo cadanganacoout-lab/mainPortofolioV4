@@ -14,7 +14,7 @@
     justify-content: center;
     border: 1px solid var(--line);
     border-radius: 9999px;
-    background: var(--card);
+    background: var(--color-raised-gradient);
     color: var(--text);
     cursor: pointer;
   }
@@ -74,7 +74,7 @@
     border-bottom: 0;
     border-left: 1px solid var(--line);
     border-radius: 0 0 48% 48% / 0 0 9% 9%;
-    background: var(--panel);
+    background: var(--color-surface-gradient);
     color: var(--text);
     clip-path: circle(0px at var(--menu-origin-x, 100%) var(--menu-origin-y, 30%));
     pointer-events: none;
@@ -137,7 +137,7 @@
     height: 2.75rem;
     border: 1px solid var(--line);
     border-radius: 9999px;
-    background: var(--card);
+    background: var(--color-raised-gradient);
     color: var(--text);
     cursor: pointer;
   }
@@ -181,6 +181,15 @@
   .mobile-menu-link:hover,
   .mobile-menu-link:focus-visible {
     padding-left: 0.4375rem;
+    color: var(--highlight);
+  }
+
+  .mobile-menu-link[aria-current="location"] {
+    color: var(--highlight);
+  }
+
+  .mobile-menu-link[aria-current="location"] .mobile-menu-number {
+    border-color: var(--highlight);
     color: var(--highlight);
   }
 
@@ -231,7 +240,7 @@
   .mobile-menu-control-row .mobile-theme-toggle {
     min-height: 2.75rem;
     border: 1px solid var(--line);
-    background: var(--card);
+    background: var(--color-raised-gradient);
     color: var(--text);
   }
 

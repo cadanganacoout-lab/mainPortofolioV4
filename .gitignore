@@ -6,5 +6,6 @@ dist/
 .env
 .vercel
 development/
-.agents/
+.github/
 desain/
+.copilot/

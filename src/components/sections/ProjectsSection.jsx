@@ -10,14 +10,19 @@ const caseStudyFields = [
   { key: "outcome", label: "Verified outcome" },
 ];
 
+function getDocumentedCaseStudy(project) {
+  return caseStudyFields.filter(({ key }) => {
+    const detail = project?.caseStudy?.[key];
+    return typeof detail === "string" && detail.trim().length > 0;
+  });
+}
+
 function ProjectsSection() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [previewProjectId, setPreviewProjectId] = useState(null);
-  const closeButtonRef = useRef(null);
-  const documentedCaseStudy = caseStudyFields.filter(({ key }) => {
-    const detail = selectedProject?.caseStudy?.[key];
-    return typeof detail === "string" && detail.trim().length > 0;
-  });
+  const [previewFailed, setPreviewFailed] = useState(false);
+  const modalCloseButtonRef = useRef(null);
+  const documentedCaseStudy = getDocumentedCaseStudy(selectedProject);
 
   useEffect(() => {
     if (!selectedProject) return undefined;
@@ -25,7 +30,7 @@ function ProjectsSection() {
     const previousFocus = document.activeElement;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    closeButtonRef.current?.focus();
+    modalCloseButtonRef.current?.focus();
 
     const handleDialogKeys = (event) => {
       if (event.key === "Escape") {
@@ -61,7 +66,7 @@ function ProjectsSection() {
 
   return (
     <>
-      <section id="work" className="section-space">
+      <section id="project-list" className="section-space">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="section-topline">
             <div className="section-heading">
@@ -73,7 +78,8 @@ function ProjectsSection() {
               </h2>
             </div>
             <p className="section-side-note">
-              A few small milestones in my learning journey.
+              Class, web, mobile, and education projects with their original
+              summaries and links.
             </p>
           </div>
 
@@ -82,15 +88,18 @@ function ProjectsSection() {
               <article key={project.number} className="project-card reveal">
                 <div
                   className={`project-visual visual-${project.visual}`}
+                  aria-hidden={previewProjectId !== project.number}
                 >
                   {previewProjectId === project.number ? (
                     <iframe
                       className="project-live-preview"
+                      id={`project-preview-${project.number}`}
                       src={project.href}
                       title={`${project.title} live preview`}
                       loading="lazy"
                       referrerPolicy="no-referrer"
                       sandbox="allow-scripts allow-forms"
+                      onError={() => setPreviewFailed(true)}
                     />
                   ) : (
                     <>
@@ -136,29 +145,36 @@ function ProjectsSection() {
 
                   <div className="project-actions">
                     <button
-                      ref={closeButtonRef}
                       type="button"
                       className="project-preview-button"
+                      aria-controls={
+                        previewProjectId === project.number
+                          ? `project-preview-${project.number}`
+                          : undefined
+                      }
                       aria-expanded={previewProjectId === project.number}
-                      onClick={() =>
+                      onClick={() => {
+                        setPreviewFailed(false);
                         setPreviewProjectId((currentId) =>
                           currentId === project.number ? null : project.number,
-                        )
-                      }
+                        );
+                      }}
                     >
                       {previewProjectId === project.number
                         ? "Hide preview"
                         : "Preview live"}
                       <ArrowUpRight size={14} />
                     </button>
-                    <button
-                      type="button"
-                      className="project-preview-button"
-                      onClick={() => setSelectedProject(project)}
-                    >
-                      View case study
-                      <ArrowUpRight size={14} />
-                    </button>
+                    {getDocumentedCaseStudy(project).length > 0 && (
+                      <button
+                        type="button"
+                        className="project-preview-button"
+                        onClick={() => setSelectedProject(project)}
+                      >
+                        View case study
+                        <ArrowUpRight size={14} />
+                      </button>
+                    )}
                     <a
                       href={project.href}
                       target="_blank"
@@ -169,6 +185,13 @@ function ProjectsSection() {
                       <ExternalLink size={13} />
                     </a>
                   </div>
+                  {previewProjectId === project.number && (
+                    <p className="project-preview-note" role="status">
+                      {previewFailed
+                        ? "The preview could not be displayed. Open the project in a new tab instead."
+                        : "Some sites do not allow embedded previews. Open the project in a new tab if it stays blank."}
+                    </p>
+                  )}
                 </div>
               </article>
             ))}
@@ -187,6 +210,7 @@ function ProjectsSection() {
           >
             <button
               type="button"
+              ref={modalCloseButtonRef}
               className="project-modal-close"
               onClick={() => setSelectedProject(null)}
               aria-label="Close case study"
@@ -200,22 +224,14 @@ function ProjectsSection() {
               <p>{selectedProject.description}</p>
             </div>
 
-            {documentedCaseStudy.length ? (
-              <div className="project-modal-grid">
-                {documentedCaseStudy.map(({ key, label }) => (
-                  <div key={key} className="project-modal-card">
-                    <h4>{label}</h4>
-                    <p>{selectedProject.caseStudy[key]}</p>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="case-study-pending" role="note">
-                Project-specific problem, role, challenges, solution, and
-                outcomes are not documented yet. Add only verified details to
-                the project&apos;s <code>caseStudy</code> data before publishing.
-              </div>
-            )}
+            <div className="project-modal-grid">
+              {documentedCaseStudy.map(({ key, label }) => (
+                <div key={key} className="project-modal-card">
+                  <h4>{label}</h4>
+                  <p>{selectedProject.caseStudy[key]}</p>
+                </div>
+              ))}
+            </div>
 
             <div className="project-modal-footer">
               <div>

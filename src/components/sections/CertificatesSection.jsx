@@ -2,7 +2,7 @@ import { certificates } from "../../data/portfolio";
 
 function CertificatesSection() {
   return (
-    <section id="certificates" className="section-space">
+    <section id="milestones" className="section-space">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="section-topline">
           <div className="section-heading">

@@ -13,11 +13,12 @@ import {
 export const emailAddress = "langgdeveloper@gmail.com";
 
 export const navItems = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#work" },
-  { label: "Journey", href: "#journey" },
-  { label: "Contact", href: "#contact" }, 
+  { label: "Home", href: "#home", section: "home" },
+  { label: "About", href: "#about", section: "about" },
+  { label: "Projects", href: "#projects", section: "projects" },
+  { label: "Journey", href: "/about#journey", section: "journey" },
+  { label: "Milestones", href: "/about#milestones", section: "milestones" },
+  { label: "Contact", href: "#contact", section: "contact" },
 ];
 
 export const projectData = [
@@ -81,14 +82,16 @@ export const projectData = [
   },
 ];
 
+export const languageList = ["HTML", "CSS", "JavaScript", "PHP", "Dart"];
+
 export const skillGroups = [
   {
     title: "Frontend",
-    items: ["HTML", "CSS", "JavaScript", "React.js", "Tailwind CSS"],
+    items: ["React.js", "Tailwind CSS"],
   },
   {
     title: "Backend",
-    items: ["Node.js", "Express.js", "PHP", "MySQL", "Laravel", "MongoDB", "Subabase"],
+    items: ["Node.js", "Express.js", "MySQL", "Laravel", "MongoDB", "Supabase"],
   },
   {
     title: "Design",

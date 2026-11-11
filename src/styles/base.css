@@ -1,35 +1,139 @@
 
 :root {
-  --page-bg: #f5f2ec;
-  --panel: rgba(255, 255, 255, 0.76);
-  --card: rgba(255, 255, 255, 0.72);
-  --soft-card: #f2efe8;
-  --text: #171717;
-  --muted: #494949;
-  --line: rgba(20, 20, 20, 0.12);
-  --shadow: rgba(23, 23, 23, 0.12);
-  --highlight: #111111;
+  --header-height: 5rem;
+  --rail-width: 5.25rem;
+
+  --color-background: #ffffff;
+  --color-surface: #f9f6ee;
+  --color-surface-secondary: #feebe7;
+  --color-surface-tertiary: #fffff0;
+  --color-surface-accent: #fbceb1;
+  --color-text-primary: #1b1212;
+  --color-text-secondary: rgba(27, 18, 18, 0.68);
+  --color-accent: #c04000;
+  --color-accent-secondary: #cc5500;
+  --color-accent-tertiary: #ff7f50;
+  --color-accent-quaternary: #c04000;
+  --color-border: rgba(27, 18, 18, 0.16);
+  --color-focus: #c04000;
+  --color-accent-foreground: #1b1212;
+  --color-background-gradient: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #ffffff 60%,
+    #f9f6ee 90%,
+    #feebe7 100%
+  );
+  --color-surface-gradient: linear-gradient(
+    135deg,
+    #f9f6ee 0%,
+    #f9f6ee 60%,
+    #fffff0 90%,
+    #feebe7 100%
+  );
+  --color-raised-gradient: linear-gradient(
+    135deg,
+    #feebe7 0%,
+    #feebe7 60%,
+    #fffff0 90%,
+    #fbceb1 100%
+  );
+  --color-accent-gradient: linear-gradient(
+    100deg,
+    #c04000 0%,
+    #cc5500 50%,
+    #ff7f50 100%
+  );
+  --color-spiral-gradient: conic-gradient(
+    #c04000 0deg 72deg,
+    #cc5500 72deg 144deg,
+    #ff7f50 144deg 216deg,
+    #c04000 216deg 288deg,
+    transparent 288deg 360deg
+  );
+
+  --page-bg: var(--color-background);
+  --panel: var(--color-surface);
+  --card: var(--color-surface-secondary);
+  --soft-card: var(--color-surface-tertiary);
+  --text: var(--color-text-primary);
+  --muted: var(--color-text-secondary);
+  --line: var(--color-border);
+  --shadow: rgba(27, 18, 18, 0.12);
+  --highlight: var(--color-accent);
 }
 
 html.dark {
-  --page-bg: #101010;
-  --panel: rgba(18, 18, 18, 0.7);
-  --card: rgba(28, 28, 28, 0.7);
-  --soft-card: #171717;
-  --text: #f6f6f6;
-  --muted: #b9b5ad;
-  --line: rgba(255, 255, 255, 0.12);
-  --shadow: rgba(0, 0, 0, 0.28);
-  --highlight: #f5f1eb;
+  --color-background: #000000;
+  --color-surface: #260b6b;
+  --color-surface-secondary: #121212;
+  --color-surface-tertiary: #1e1e1e;
+  --color-surface-accent: #091c4d;
+  --color-surface-raised: #3f3657;
+  --color-text-primary: #f9f6ee;
+  --color-text-secondary: rgba(249, 246, 238, 0.68);
+  --color-accent: #e6e6fa;
+  --color-accent-secondary: #f9f6ee;
+  --color-accent-tertiary: #faf9f6;
+  --color-accent-quaternary: #fffff0;
+  --color-border: color-mix(in srgb, #3f3657 62%, transparent);
+  --color-focus: #e6e6fa;
+  --color-accent-foreground: #000000;
+  --color-background-gradient: linear-gradient(
+    135deg,
+    #000000 0%,
+    #000000 60%,
+    #260b6b 90%,
+    #091c4d 100%
+  );
+  --color-surface-gradient: linear-gradient(
+    135deg,
+    #260b6b 0%,
+    #260b6b 60%,
+    #1e1e1e 90%,
+    #3f3657 100%
+  );
+  --color-raised-gradient: linear-gradient(
+    135deg,
+    #121212 0%,
+    #121212 60%,
+    #091c4d 90%,
+    #3f3657 100%
+  );
+  --color-accent-gradient: linear-gradient(
+    100deg,
+    #e6e6fa 0%,
+    #f9f6ee 35%,
+    #faf9f6 68%,
+    #fffff0 100%
+  );
+  --color-spiral-gradient: conic-gradient(
+    #e6e6fa 0deg 72deg,
+    #f9f6ee 72deg 144deg,
+    #faf9f6 144deg 216deg,
+    #fffff0 216deg 288deg,
+    transparent 288deg 360deg
+  );
+
+  --page-bg: var(--color-background);
+  --panel: var(--color-surface);
+  --card: var(--color-surface-secondary);
+  --soft-card: var(--color-surface-tertiary);
+  --text: var(--color-text-primary);
+  --muted: var(--color-text-secondary);
+  --line: var(--color-border);
+  --shadow: rgba(0, 0, 0, 0.38);
+  --highlight: var(--color-accent);
 }
 
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  scroll-padding-top: calc(var(--header-height) + 1rem);
 }
 
 section[id] {
-  scroll-margin-top: 5.5rem;
+  scroll-margin-top: calc(var(--header-height) + 1rem);
 }
 
 body {
@@ -37,9 +141,9 @@ body {
   overflow-x: hidden;
   font-family: 'Instrument Sans', sans-serif;
   background:
-    radial-gradient(circle at top left, rgba(255, 212, 165, 0.16), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(117, 97, 255, 0.08), transparent 32%),
-    var(--page-bg);
+    radial-gradient(circle at 8% 2%, color-mix(in srgb, var(--color-surface-accent) 24%, transparent), transparent 32rem),
+    radial-gradient(circle at 92% 38%, color-mix(in srgb, var(--color-accent-tertiary) 8%, transparent), transparent 35rem),
+    var(--color-background-gradient);
   color: var(--text);
   text-rendering: optimizeLegibility;
 }
@@ -49,7 +153,7 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid #8b9cff;
+  outline: 3px solid var(--color-focus);
   outline-offset: 3px;
 }
 
@@ -60,7 +164,12 @@ img {
 
 button,
 a {
-  transition: all 180ms ease;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
 }
 
 #root {

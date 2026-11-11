@@ -13,11 +13,11 @@
   width: 2.5rem;
   height: 2.5rem;
   flex: 0 0 auto;
-  filter: drop-shadow(0 5px 12px rgba(128, 107, 255, 0.2));
+  filter: drop-shadow(0 5px 12px var(--shadow));
 }
 
 html.dark .brand-mark img {
-  filter: invert(1) drop-shadow(0 5px 12px rgba(128, 107, 255, 0.2));
+  filter: invert(1) drop-shadow(0 5px 12px var(--shadow));
 }
 
 .brand-mark strong {
@@ -42,6 +42,27 @@ html.dark .brand-mark img {
   color: var(--muted);
 }
 
+.nav-link::after {
+  position: absolute;
+  right: 0;
+  bottom: -0.45rem;
+  left: 0;
+  height: 1px;
+  background: var(--highlight);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms ease;
+}
+
+.nav-link[aria-current="location"] {
+  color: var(--text);
+}
+
+.nav-link[aria-current="location"]::after {
+  transform: scaleX(1);
+}
+
 .nav-link:hover {
   color: var(--text);
 }
@@ -54,7 +75,7 @@ html.dark .brand-mark img {
   height: 2.5rem;
   border-radius: 9999px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--color-raised-gradient);
   color: var(--text);
 }
 
@@ -77,7 +98,11 @@ html.dark .brand-mark img {
   padding: 0 0.9rem;
   border: 1px solid var(--line);
   border-radius: 9999px;
-  background: linear-gradient(135deg, var(--card), rgba(255, 255, 255, 0.03));
+  background: linear-gradient(
+    135deg,
+    var(--card),
+    color-mix(in srgb, var(--color-surface-secondary) 30%, transparent)
+  );
   color: var(--text);
   box-shadow: 0 7px 22px var(--shadow);
 }
@@ -90,8 +115,8 @@ html.dark .brand-mark img {
 }
 
 .music-trigger.is-playing {
-  border-color: rgba(93, 211, 139, 0.45);
-  color: #6ee7a1;
+  border-color: color-mix(in srgb, var(--highlight) 65%, var(--line));
+  color: var(--highlight);
 }
 
 .music-trigger-label {
@@ -160,8 +185,8 @@ html.dark .brand-mark img {
   align-items: center;
   justify-content: center;
   border-radius: 0.9rem;
-  background: linear-gradient(145deg, #39334e, #a6788d);
-  color: white;
+  background: var(--color-raised-gradient);
+  color: var(--highlight);
 }
 
 .music-track {
@@ -194,7 +219,7 @@ html.dark .brand-mark img {
   justify-content: center;
   border: 1px solid var(--line);
   border-radius: 50%;
-  background: var(--card);
+  background: var(--color-surface-gradient);
   color: var(--muted);
 }
 
@@ -229,8 +254,8 @@ html.dark .brand-mark img {
 }
 
 .music-volume-button.volume-on {
-  border-color: rgba(93, 211, 139, 0.4);
-  color: #40b978;
+  border-color: var(--highlight);
+  color: var(--highlight);
 }
 
 .music-volume-control {
@@ -262,7 +287,7 @@ html.dark .brand-mark img {
   border-radius: 9999px;
   background: linear-gradient(
     to right,
-    #6ee7a1 0 var(--volume-progress),
+    var(--highlight) 0 var(--volume-progress),
     var(--line) var(--volume-progress) 100%
   );
   cursor: pointer;
@@ -274,8 +299,8 @@ html.dark .brand-mark img {
   appearance: none;
   border: 2px solid var(--page-bg);
   border-radius: 50%;
-  background: #6ee7a1;
-  box-shadow: 0 0 0 1px #6ee7a1;
+  background: var(--highlight);
+  box-shadow: 0 0 0 1px var(--highlight);
 }
 
 .music-volume-slider-row input::-moz-range-thumb {
@@ -283,12 +308,12 @@ html.dark .brand-mark img {
   height: 0.7rem;
   border: 2px solid var(--page-bg);
   border-radius: 50%;
-  background: #6ee7a1;
-  box-shadow: 0 0 0 1px #6ee7a1;
+  background: var(--highlight);
+  box-shadow: 0 0 0 1px var(--highlight);
 }
 
 .music-volume-slider-row input:focus-visible {
-  outline: 2px solid #6ee7a1;
+  outline: 2px solid var(--color-focus);
   outline-offset: 4px;
 }
 
@@ -338,6 +363,6 @@ html.dark .brand-mark img {
   width: 0.55rem;
   height: 0.55rem;
   border-radius: 9999px;
-  background: #5dd38b;
-  box-shadow: 0 0 0 6px rgba(93, 211, 139, 0.14);
+  background: var(--highlight);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--highlight) 14%, transparent);
 }

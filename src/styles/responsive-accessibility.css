@@ -140,36 +140,9 @@
     scroll-behavior: auto;
   }
 
-  *:not(
-      :is(
-        .site-header,
-        .site-header *,
-        .mobile-menu-trigger,
-        .mobile-menu-backdrop,
-        .mobile-menu-panel,
-        .mobile-menu-panel *
-      )
-    ),
-  *:not(
-      :is(
-        .site-header,
-        .site-header *,
-        .mobile-menu-trigger,
-        .mobile-menu-backdrop,
-        .mobile-menu-panel,
-        .mobile-menu-panel *
-      )
-    )::before,
-  *:not(
-      :is(
-        .site-header,
-        .site-header *,
-        .mobile-menu-trigger,
-        .mobile-menu-backdrop,
-        .mobile-menu-panel,
-        .mobile-menu-panel *
-      )
-    )::after {
+  *,
+  *::before,
+  *::after {
     scroll-behavior: auto !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

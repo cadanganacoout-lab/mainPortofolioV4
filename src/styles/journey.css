@@ -3,6 +3,45 @@
   gap: 1.5rem;
   align-items: start;
   grid-template-columns: 1fr;
+  grid-template-areas:
+    "intro"
+    "education"
+    "languages"
+    "technologies"
+    "skill-levels"
+    "tools";
+}
+
+.journey-intro {
+  grid-area: intro;
+}
+
+.journey-education {
+  grid-area: education;
+}
+
+.journey-languages {
+  grid-area: languages;
+  align-self: start;
+}
+
+.journey-technologies {
+  grid-area: technologies;
+}
+
+.journey-skill-levels {
+  grid-area: skill-levels;
+}
+
+.journey-tools-marquee {
+  grid-area: tools;
+  margin-top: 0;
+}
+
+.journey-languages h3 {
+  margin: 0 0 0.6rem;
+  font-size: 0.95rem;
+  letter-spacing: -0.03em;
 }
 
 .learning-card {
@@ -13,7 +52,7 @@
   padding: 0.9rem 1rem;
   border-radius: 1rem;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--color-surface-gradient);
 }
 
 .journey-intro h2 {
@@ -33,11 +72,6 @@
   margin-top: 1rem;
   line-height: 1.8;
   color: var(--muted);
-}
-
-.journey-details {
-  display: grid;
-  gap: 1.2rem;
 }
 
 .detail-block {
@@ -128,7 +162,7 @@
   overflow: hidden;
   height: 0.55rem;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-raised-gradient);
   border: 1px solid var(--line);
 }
 
@@ -136,7 +170,7 @@
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), rgba(99, 121, 255, 0.8));
+  background: var(--color-accent-gradient);
 }
 
 .tool-list {
@@ -152,7 +186,7 @@
   justify-content: center;
   border-radius: 9999px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--color-raised-gradient);
   padding: 0.5rem 0.75rem;
   font-size: 0.72rem;
   letter-spacing: 0.08em;
@@ -173,7 +207,7 @@
 .certificate-image-wrap {
   width: 100%;
   aspect-ratio: 4 / 3;
-  background: rgba(255,255,255,0.03);
+  background: var(--color-raised-gradient);
 }
 
 .certificate-image {

@@ -18,9 +18,10 @@
   overflow-y: auto;
   border: 1px solid var(--line);
   border-radius: 1.75rem;
-  background: rgba(17, 17, 17, 0.95);
+  background: var(--color-surface-gradient);
+  color: var(--text);
   padding: 1.5rem;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 30px 60px var(--shadow);
 }
 
 .project-modal-close {
@@ -34,7 +35,7 @@
   height: 2.3rem;
   border-radius: 9999px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--color-raised-gradient);
   color: var(--text);
   cursor: pointer;
 }
@@ -57,16 +58,6 @@
   line-height: 1.7;
 }
 
-.case-study-pending {
-  margin-top: 1.25rem;
-  border: 1px solid var(--line);
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.03);
-  padding: 1rem;
-  color: var(--muted);
-  line-height: 1.65;
-}
-
 .project-modal-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -78,7 +69,7 @@
   border: 1px solid var(--line);
   border-radius: 1.2rem;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--color-raised-gradient);
 }
 
 .project-modal-card h4 {

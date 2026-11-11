@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   Headphones,
   Menu,
@@ -11,26 +11,33 @@ import {
   VolumeX,
   X,
 } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 import { navItems } from "../../data/portfolio";
+import { useActiveSection } from "../../hooks/useActiveSection";
 
-const mobileNavItems = [
-  { label: "Home", href: "#home" },
-  { label: "My Work", href: "#work" },
-  { label: "About Me", href: "#about" },
-  { label: "Contact", href: "#contact" },
-];
+const sectionIdsByPath = {
+  "/": ["home", "about", "projects", "contact"],
+  "/about": ["about", "journey", "milestones"],
+  "/projects": ["projects"],
+};
 
-function handleNavigationClick(event, href) {
-  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  const target = document.querySelector(href);
-  if (!target) return;
-
-  event.preventDefault();
-  if (window.location.hash !== href) {
-    window.history.pushState(null, "", href);
+function getNavigationHref(item, pathname) {
+  if (item.section === "journey" || item.section === "milestones") {
+    return pathname === "/about" ? `#${item.section}` : item.href;
   }
-  target.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (pathname === "/about" && item.section === "about") return "/about";
+  if (pathname === "/projects" && item.section === "projects") return "/projects";
+  if (item.href.startsWith("#")) {
+    return pathname === "/" ? item.href : `/${item.href}`;
+  }
+  return item.href;
+}
+
+function getCurrentNavigationState(item, pathname, activeSection) {
+  if (item.section === activeSection) return "location";
+  if (pathname === "/about" && item.section === "about") return "page";
+  if (pathname === "/projects" && item.section === "projects") return "page";
+  return undefined;
 }
 
 function MusicPlaybackControls({
@@ -124,7 +131,27 @@ function MusicPlaybackControls({
 }
 
 function SiteHeader() {
-  const [darkMode, setDarkMode] = useState(true);
+  const { pathname } = useLocation();
+  const sectionIds = sectionIdsByPath[pathname] ?? sectionIdsByPath["/"];
+  const visibleNavItems =
+    pathname === "/about"
+      ? navItems
+      : navItems.filter(
+          (item) =>
+            item.section !== "journey" && item.section !== "milestones",
+        );
+  const activeSection = useActiveSection(sectionIds);
+  const [darkMode, setDarkMode] = useState(() => {
+    try {
+      const savedTheme = window.localStorage.getItem("gilang-portfolio-theme");
+      if (savedTheme === "light" || savedTheme === "dark") {
+        return savedTheme === "dark";
+      }
+    } catch {
+      // Use the system preference when local storage is unavailable.
+    }
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
   const [musicOn, setMusicOn] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolume] = useState(50);
@@ -136,14 +163,7 @@ function SiteHeader() {
   const mobileMenuTriggerRef = useRef(null);
   const audioRef = useRef(null);
 
-  useEffect(() => {
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-    setDarkMode(prefersDark);
-  }, []);
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
     document.documentElement.style.colorScheme = darkMode ? "dark" : "light";
   }, [darkMode]);
@@ -275,7 +295,20 @@ function SiteHeader() {
     if (restoreFocus) mobileMenuTriggerRef.current?.focus();
   };
 
-  const toggleTheme = () => setDarkMode((prev) => !prev);
+  const toggleTheme = () => {
+    setDarkMode((prev) => {
+      const next = !prev;
+      try {
+        window.localStorage.setItem(
+          "gilang-portfolio-theme",
+          next ? "dark" : "light",
+        );
+      } catch {
+        // The current page still updates if local storage is unavailable.
+      }
+      return next;
+    });
+  };
 
   const renderMusicControls = (id) => (
     <MusicPlaybackControls
@@ -293,6 +326,10 @@ function SiteHeader() {
 
   return (
     <>
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+
       <audio
         ref={audioRef}
         src="/music/8%20Letters%20-%20Why%20Don%27t%20We%20%5BOfficial%20Music%20Video%5D.mp3"
@@ -301,39 +338,28 @@ function SiteHeader() {
       />
 
       <header className="site-header fixed inset-x-0 top-0 z-50 border-b border-[var(--line)] bg-[var(--panel)]/80 backdrop-blur-xl">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <a
-            href="#home"
+        <nav className="site-header-inner" aria-label="Site header">
+          <Link
+            to={pathname === "/" ? "#home" : "/#home"}
             className="brand-mark"
-            aria-label="Gilang Faid — back to top"
+            aria-label="Gilang Faid — home"
           >
             <img
               src="/images/logo/gilang-faid.svg"
               alt=""
               aria-hidden="true"
             />
-            <span>
-              G <strong>F</strong>
+            <span className="brand-copy">
+              <strong>Gilang Faid</strong>
+              <small>Portfolio / 2026</small>
             </span>
-          </a>
+          </Link>
 
-          <div className="hidden items-center gap-8 md:flex">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="nav-link"
-                onClick={(event) => handleNavigationClick(event, item.href)}
-              >
-                {item.label}
-              </a>
-            ))}
-          </div>
-
-          <div className="hidden items-center gap-2 sm:gap-3 md:flex">
+          <div className="header-controls">
             <div className="music-control" ref={desktopMusicControlRef}>
               <button
                 type="button"
+                className={`music-trigger desktop-music-trigger${musicOn && !isMuted ? " is-playing" : ""}`}
                 onClick={() => setIsMusicPanelOpen((prev) => !prev)}
                 aria-label={
                   isMusicPanelOpen
@@ -341,8 +367,9 @@ function SiteHeader() {
                     : "Open music controls"
                 }
                 aria-expanded={isMusicPanelOpen}
-                aria-controls="music-controls-desktop"
-                className={`music-trigger${musicOn && !isMuted ? " is-playing" : ""}`}
+                aria-controls={
+                  isMusicPanelOpen ? "music-controls-desktop" : undefined
+                }
               >
                 <Headphones size={18} />
                 <span className="music-trigger-label">Music</span>
@@ -360,36 +387,57 @@ function SiteHeader() {
             <button
               type="button"
               onClick={toggleTheme}
-              aria-label="Toggle theme"
-              aria-pressed={!darkMode}
+              aria-label={`Switch to ${darkMode ? "light" : "dark"} theme`}
+              aria-pressed={darkMode}
               className="icon-button"
             >
               {darkMode ? <SunMedium size={16} /> : <MoonStar size={16} />}
             </button>
 
-            <a
-              href="#contact"
-              className="rounded-full border border-[var(--line)] bg-[var(--card)] px-4 py-2 text-sm font-medium text-[var(--text)] transition hover:-translate-y-0.5 hover:border-[var(--text)]"
-            >
-              Let’s talk
-            </a>
-          </div>
+            {pathname !== "/" && (
+              <Link to="/#contact" className="header-contact-link">
+                Let’s talk
+              </Link>
+            )}
 
-          <button
-            ref={mobileMenuTriggerRef}
-            type="button"
-            onClick={() =>
-              isMobileMenuOpen ? closeMobileMenu(false) : openMobileMenu()
-            }
-            aria-label={isMobileMenuOpen ? "Close navigation" : "Open navigation"}
-            aria-expanded={isMobileMenuOpen}
-            aria-controls="mobile-navigation"
-            className="mobile-menu-trigger icon-button md:hidden"
-          >
-            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+            <button
+              ref={mobileMenuTriggerRef}
+              type="button"
+              onClick={() =>
+                isMobileMenuOpen ? closeMobileMenu(false) : openMobileMenu()
+              }
+              aria-label={
+                isMobileMenuOpen ? "Close navigation" : "Open navigation"
+              }
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-navigation"
+              className="mobile-menu-trigger icon-button"
+            >
+              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </nav>
       </header>
+
+      <nav className="desktop-section-rail" aria-label="Portfolio navigation">
+        <span className="section-rail-caption">Explore</span>
+        {visibleNavItems.map((item, index) => (
+          <Link
+            key={item.label}
+            to={getNavigationHref(item, pathname)}
+            className="section-rail-link"
+            aria-current={getCurrentNavigationState(
+              item,
+              pathname,
+              activeSection,
+            )}
+            aria-label={item.label}
+          >
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <strong>{item.label}</strong>
+          </Link>
+        ))}
+      </nav>
 
       <button
         type="button"
@@ -422,15 +470,17 @@ function SiteHeader() {
 
         <nav className="mobile-menu-content" aria-label="Main navigation">
           <p className="mobile-menu-eyebrow">Take a look around</p>
-          {mobileNavItems.map((item, index) => (
-            <a
+          {visibleNavItems.map((item, index) => (
+            <Link
               key={item.href}
-              href={item.href}
+              to={getNavigationHref(item, pathname)}
               className="mobile-menu-link"
-              onClick={(event) => {
-                handleNavigationClick(event, item.href);
-                closeMobileMenu();
-              }}
+              aria-current={getCurrentNavigationState(
+                item,
+                pathname,
+                activeSection,
+              )}
+              onClick={closeMobileMenu}
             >
               <span className="mobile-menu-number" aria-hidden="true">
                 {String(index + 1).padStart(2, "0")}
@@ -439,7 +489,7 @@ function SiteHeader() {
               <span className="mobile-menu-arrow" aria-hidden="true">
                 ↗
               </span>
-            </a>
+            </Link>
           ))}
 
           <div className="mobile-menu-preferences">
@@ -451,7 +501,9 @@ function SiteHeader() {
                     type="button"
                     onClick={() => setIsMusicPanelOpen((prev) => !prev)}
                     aria-expanded={isMusicPanelOpen}
-                    aria-controls="music-controls-mobile"
+                    aria-controls={
+                      isMusicPanelOpen ? "music-controls-mobile" : undefined
+                    }
                     className={`music-trigger${musicOn && !isMuted ? " is-playing" : ""}`}
                   >
                     <Headphones size={18} />
@@ -469,7 +521,7 @@ function SiteHeader() {
                     type="button"
                     onClick={toggleTheme}
                     aria-label={`Switch to ${darkMode ? "light" : "dark"} theme`}
-                    aria-pressed={!darkMode}
+                    aria-pressed={darkMode}
                     className="icon-button mobile-theme-toggle"
                   >
                     {darkMode ? <SunMedium size={16} /> : <MoonStar size={16} />}

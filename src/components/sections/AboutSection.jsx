@@ -2,10 +2,10 @@ import { missions } from "../../data/portfolio";
 
 function AboutSection() {
   return (
-    <section id="about" className="section-space">
+    <section id="about" className="section-space about-story-section">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="section-heading">
-          <p className="eyebrow">01 / ABOUT ME</p>
+          <p className="eyebrow">02 / MY STORY</p>
           <h2>
             Curiosity is
             <br />
