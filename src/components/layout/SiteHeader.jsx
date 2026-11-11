@@ -14,12 +14,23 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { navItems } from "../../data/portfolio";
 import { useActiveSection } from "../../hooks/useActiveSection";
+import {
+  musicTracks,
+  useMusicPlayer,
+} from "../../context/MusicPlayerContext";
 
 const sectionIdsByPath = {
   "/": ["home", "about", "projects", "contact"],
   "/about": ["about", "journey", "milestones"],
   "/projects": ["projects"],
 };
+
+function formatMusicTime(time) {
+  const totalSeconds = Number.isFinite(time) ? Math.max(0, Math.floor(time)) : 0;
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = String(totalSeconds % 60).padStart(2, "0");
+  return `${minutes}:${seconds}`;
+}
 
 function getNavigationHref(item, pathname) {
   if (item.section === "journey" || item.section === "milestones") {
@@ -45,6 +56,11 @@ function MusicPlaybackControls({
   isMuted,
   isMusicPanelOpen,
   musicOn,
+  currentTime,
+  duration,
+  selectedTrack,
+  seekTo,
+  setSelectedTrack,
   setIsMuted,
   setIsMusicPanelOpen,
   setMusicOn,
@@ -65,8 +81,8 @@ function MusicPlaybackControls({
           <Headphones size={18} />
         </span>
         <div className="music-track">
-          <strong>8 Letters</strong>
-          <span>Why Don&apos;t We</span>
+          <strong>{selectedTrack.title}</strong>
+          <span>{selectedTrack.artist}</span>
         </div>
         <button
           type="button"
@@ -77,6 +93,26 @@ function MusicPlaybackControls({
           <X size={16} />
         </button>
       </div>
+
+      <label className="music-track-picker">
+        <span>Choose a track</span>
+        <select
+          value={selectedTrack.fileName}
+          onChange={(event) => {
+            const nextTrack = musicTracks.find(
+              (track) => track.fileName === event.target.value,
+            );
+            if (nextTrack) setSelectedTrack(nextTrack);
+          }}
+          aria-label="Choose a music track"
+        >
+          {musicTracks.map((track) => (
+            <option key={track.fileName} value={track.fileName}>
+              {track.title} — {track.artist}
+            </option>
+          ))}
+        </select>
+      </label>
 
       <div className="music-actions">
         <button
@@ -101,6 +137,27 @@ function MusicPlaybackControls({
           {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
         </button>
       </div>
+
+      <label className="music-seek-control">
+        <span className="music-seek-times">
+          <span>{formatMusicTime(currentTime)}</span>
+          <span>{formatMusicTime(duration)}</span>
+        </span>
+        <input
+          type="range"
+          min="0"
+          max={duration}
+          step="0.1"
+          value={Math.min(currentTime, duration)}
+          disabled={duration <= 0}
+          onChange={(event) => seekTo(Number(event.target.value))}
+          aria-label="Seek music playback"
+          style={{
+            "--seek-progress":
+              duration > 0 ? `${(currentTime / duration) * 100}%` : "0%",
+          }}
+        />
+      </label>
 
       <label className="music-volume-control">
         <span className="music-volume-label">
@@ -141,6 +198,19 @@ function SiteHeader() {
             item.section !== "journey" && item.section !== "milestones",
         );
   const activeSection = useActiveSection(sectionIds);
+  const {
+    currentTime,
+    duration,
+    isMuted,
+    musicOn,
+    seekTo,
+    selectedTrack,
+    setIsMuted,
+    setMusicOn,
+    setSelectedTrack,
+    setVolume,
+    volume,
+  } = useMusicPlayer();
   const [darkMode, setDarkMode] = useState(() => {
     try {
       const savedTheme = window.localStorage.getItem("gilang-portfolio-theme");
@@ -152,35 +222,16 @@ function SiteHeader() {
     }
     return window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
-  const [musicOn, setMusicOn] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-  const [volume, setVolume] = useState(50);
   const [isMusicPanelOpen, setIsMusicPanelOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const desktopMusicControlRef = useRef(null);
   const mobileMusicControlRef = useRef(null);
   const mobileMenuRef = useRef(null);
   const mobileMenuTriggerRef = useRef(null);
-  const audioRef = useRef(null);
-
   useLayoutEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
     document.documentElement.style.colorScheme = darkMode ? "dark" : "light";
   }, [darkMode]);
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    audio.volume = volume / 100;
-    audio.muted = isMuted;
-
-    if (musicOn) {
-      audio.play().catch(() => setMusicOn(false));
-    } else {
-      audio.pause();
-    }
-  }, [isMuted, musicOn, volume]);
 
   useEffect(() => {
     if (!isMusicPanelOpen) return undefined;
@@ -313,9 +364,14 @@ function SiteHeader() {
   const renderMusicControls = (id) => (
     <MusicPlaybackControls
       id={id}
+      currentTime={currentTime}
+      duration={duration}
       isMuted={isMuted}
       isMusicPanelOpen={isMusicPanelOpen}
       musicOn={musicOn}
+      selectedTrack={selectedTrack}
+      seekTo={seekTo}
+      setSelectedTrack={setSelectedTrack}
       setIsMuted={setIsMuted}
       setIsMusicPanelOpen={setIsMusicPanelOpen}
       setMusicOn={setMusicOn}
@@ -329,13 +385,6 @@ function SiteHeader() {
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
-
-      <audio
-        ref={audioRef}
-        src="/music/8%20Letters%20-%20Why%20Don%27t%20We%20%5BOfficial%20Music%20Video%5D.mp3"
-        preload="metadata"
-        loop
-      />
 
       <header className="site-header fixed inset-x-0 top-0 z-50 border-b border-[var(--line)] bg-[var(--panel)]/80 backdrop-blur-xl">
         <nav className="site-header-inner" aria-label="Site header">

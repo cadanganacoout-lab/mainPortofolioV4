@@ -1,18 +1,33 @@
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 
-function TypewriterText({ text, emphasis, className = "" }) {
+function TypewriterText({
+  text,
+  emphasis,
+  className = "",
+  onTypingStart,
+  onTypingComplete,
+  onTypingReset,
+}) {
   const elementRef = useRef(null);
+  const onTypingStartRef = useRef(onTypingStart);
+  const onTypingCompleteRef = useRef(onTypingComplete);
+  const onTypingResetRef = useRef(onTypingReset);
   const [isVisible, setIsVisible] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [visibleText, setVisibleText] = useState("");
   const prefersReducedMotion = useReducedMotion();
+
+  onTypingStartRef.current = onTypingStart;
+  onTypingCompleteRef.current = onTypingComplete;
+  onTypingResetRef.current = onTypingReset;
 
   useEffect(() => {
     if (prefersReducedMotion || !("IntersectionObserver" in window)) {
       setIsVisible(true);
       setVisibleText(text);
       setIsTyping(false);
+      onTypingCompleteRef.current?.();
       return undefined;
     }
 
@@ -25,12 +40,14 @@ function TypewriterText({ text, emphasis, className = "" }) {
           setIsVisible(true);
           setVisibleText("");
           setIsTyping(true);
+          onTypingStartRef.current?.();
           return;
         }
 
         setIsVisible(false);
         setVisibleText("");
         setIsTyping(false);
+        onTypingResetRef.current?.();
       },
       { threshold: 0.1, rootMargin: "0px 0px -8% 0px" },
     );
@@ -44,16 +61,23 @@ function TypewriterText({ text, emphasis, className = "" }) {
 
     const characters = Array.from(text);
     let visibleCharacterCount = 0;
-    const intervalId = window.setInterval(() => {
-      visibleCharacterCount += 1;
-      setVisibleText(characters.slice(0, visibleCharacterCount).join(""));
-      if (visibleCharacterCount >= characters.length) {
-        window.clearInterval(intervalId);
-        setIsTyping(false);
-      }
-    }, 68);
+    let intervalId;
+    const startTimeoutId = window.setTimeout(() => {
+      intervalId = window.setInterval(() => {
+        visibleCharacterCount += 1;
+        setVisibleText(characters.slice(0, visibleCharacterCount).join(""));
+        if (visibleCharacterCount >= characters.length) {
+          window.clearInterval(intervalId);
+          setIsTyping(false);
+          onTypingCompleteRef.current?.();
+        }
+      }, 90);
+    }, 280);
 
-    return () => window.clearInterval(intervalId);
+    return () => {
+      window.clearTimeout(startTimeoutId);
+      if (intervalId !== undefined) window.clearInterval(intervalId);
+    };
   }, [isTyping, text]);
 
   const emphasisStart = emphasis ? text.indexOf(emphasis) : -1;

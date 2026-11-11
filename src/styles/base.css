@@ -65,46 +65,46 @@
 
 html.dark {
   --color-background: #000000;
-  --color-surface: #260b6b;
-  --color-surface-secondary: #121212;
-  --color-surface-tertiary: #1e1e1e;
-  --color-surface-accent: #091c4d;
-  --color-surface-raised: #3f3657;
-  --color-text-primary: #f9f6ee;
-  --color-text-secondary: rgba(249, 246, 238, 0.68);
+  --color-surface: #121212;
+  --color-surface-secondary: #1e1e1e;
+  --color-surface-tertiary: #28282b;
+  --color-surface-accent: #353935;
+  --color-surface-raised: #899499;
+  --color-text-primary: #faf9f6;
+  --color-text-secondary: rgba(250, 249, 246, 0.68);
   --color-accent: #e6e6fa;
   --color-accent-secondary: #f9f6ee;
   --color-accent-tertiary: #faf9f6;
   --color-accent-quaternary: #fffff0;
-  --color-border: color-mix(in srgb, #3f3657 62%, transparent);
+  --color-border: color-mix(in srgb, #899499 38%, transparent);
   --color-focus: #e6e6fa;
   --color-accent-foreground: #000000;
   --color-background-gradient: linear-gradient(
     135deg,
     #000000 0%,
     #000000 60%,
-    #260b6b 90%,
-    #091c4d 100%
+    #121212 90%,
+    #28282b 100%
   );
   --color-surface-gradient: linear-gradient(
     135deg,
-    #260b6b 0%,
-    #260b6b 60%,
+    #121212 0%,
+    #121212 60%,
     #1e1e1e 90%,
-    #3f3657 100%
+    #353935 100%
   );
   --color-raised-gradient: linear-gradient(
     135deg,
-    #121212 0%,
-    #121212 60%,
-    #091c4d 90%,
-    #3f3657 100%
+    #1e1e1e 0%,
+    #1e1e1e 60%,
+    #28282b 90%,
+    #353935 100%
   );
   --color-accent-gradient: linear-gradient(
     100deg,
     #e6e6fa 0%,
-    #f9f6ee 35%,
-    #faf9f6 68%,
+    #f9f6ee 33%,
+    #faf9f6 66%,
     #fffff0 100%
   );
   --color-spiral-gradient: conic-gradient(
@@ -144,6 +144,7 @@ body {
     radial-gradient(circle at 8% 2%, color-mix(in srgb, var(--color-surface-accent) 24%, transparent), transparent 32rem),
     radial-gradient(circle at 92% 38%, color-mix(in srgb, var(--color-accent-tertiary) 8%, transparent), transparent 35rem),
     var(--color-background-gradient);
+  background-attachment: fixed;
   color: var(--text);
   text-rendering: optimizeLegibility;
 }

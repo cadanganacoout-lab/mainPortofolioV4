@@ -223,6 +223,11 @@
   border-color: var(--color-accent-secondary);
 }
 
+.projects-detail-page #project-list .project-visual.is-live-preview::before,
+.projects-detail-page #project-list .project-visual.is-live-preview::after {
+  display: none;
+}
+
 .projects-detail-page #project-list .visual-class {
   background: linear-gradient(135deg, var(--color-surface-secondary), var(--color-surface));
 }

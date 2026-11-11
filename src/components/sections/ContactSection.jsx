@@ -1,8 +1,7 @@
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { ArrowUpRight, Check, Copy, LoaderCircle, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { emailAddress, socialLinks } from "../../data/portfolio";
-import { FaWhatsapp } from "react-icons/fa6";
 
 function ContactSection() {
   const [formData, setFormData] = useState({
@@ -15,6 +14,15 @@ function ContactSection() {
   const [copied, setCopied] = useState(false);
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
   const formStartedAt = useRef(Date.now());
+  const messageFieldRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const messageField = messageFieldRef.current;
+    if (!messageField) return;
+
+    messageField.style.height = "auto";
+    messageField.style.height = `${messageField.scrollHeight}px`;
+  }, [formData.message, isContactFormOpen]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -92,7 +100,7 @@ function ContactSection() {
 
   return (
     <footer id="contact" className="landing-contact-footer">
-      <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <div className="contact-footer-inner mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         <div className="contact-panel reveal">
           <div className="contact-glow" aria-hidden="true" />
           <div className="contact-content">
@@ -126,6 +134,7 @@ function ContactSection() {
               hidden={!isContactFormOpen}
             >
               <form
+                id="contact-submit-form"
                 className="contact-form"
                 onSubmit={handleSubmit}
                 aria-busy={status.type === "loading"}
@@ -185,40 +194,15 @@ function ContactSection() {
                 <div className="contact-field">
                   <label htmlFor="contact-message">Message</label>
                   <textarea
+                    ref={messageFieldRef}
                     id="contact-message"
                     name="message"
-                    rows="4"
+                    rows="2"
                     maxLength={5000}
                     required
                     value={formData.message}
                     onChange={handleChange}
                   />
-                </div>
-
-                <div className="contact-form-actions">
-                  <button
-                    type="submit"
-                    className="button-primary button-compact"
-                    disabled={status.type === "loading"}
-                  >
-                    {status.type === "loading" ? (
-                      <>
-                        <LoaderCircle size={16} className="loading-spinner" />
-                        Sending...
-                      </>
-                    ) : (
-                      "Send message"
-                    )}
-                  </button>
-                  <a
-                    href="https://wa.me/6288991531800"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-link"
-                  >
-                    Message on WhatsApp
-                    <ArrowUpRight size={14} />
-                  </a>
                 </div>
 
                 {status.message && (
@@ -250,21 +234,40 @@ function ContactSection() {
                 </a>
               ))}
 
-              <a
-                href="https://wa.me/6288991531800"
-                target="_blank"
-                rel="noreferrer"
-                className="contact-link"
-              >
-                <FaWhatsapp size={16} />
-                WhatsApp
-                <ArrowUpRight size={14} />
-              </a>
-
               <span className="contact-phone">
                 0889-9153-1800 · MESSAGE ONLY
               </span>
             </div>
+
+            {isContactFormOpen && (
+              <div className="contact-aside-actions">
+                <span className="contact-aside-label">SEND YOUR MESSAGE</span>
+                <button
+                  type="submit"
+                  form="contact-submit-form"
+                  className="button-primary button-compact"
+                  disabled={status.type === "loading"}
+                >
+                  {status.type === "loading" ? (
+                    <>
+                      <LoaderCircle size={16} className="loading-spinner" />
+                      Sending...
+                    </>
+                  ) : (
+                    "Send message"
+                  )}
+                </button>
+                <a
+                  href="https://wa.me/6288991531800"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-link"
+                >
+                  Message on WhatsApp
+                  <ArrowUpRight size={14} />
+                </a>
+              </div>
+            )}
           </div>
         </div>
 

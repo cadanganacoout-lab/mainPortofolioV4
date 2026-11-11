@@ -11,6 +11,7 @@ import {
 import App from './App';
 import AboutPage from './pages/AboutPage';
 import ProjectsPage from './pages/ProjectsPage';
+import { MusicPlayerProvider } from './context/MusicPlayerContext';
 import './index.css';
 
 function RouteScrollManager() {
@@ -96,7 +97,9 @@ function AnimatedRoutes() {
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <AnimatedRoutes />
+      <MusicPlayerProvider>
+        <AnimatedRoutes />
+      </MusicPlayerProvider>
     </BrowserRouter>
   </React.StrictMode>,
 );

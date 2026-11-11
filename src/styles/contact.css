@@ -9,6 +9,9 @@
 }
 
 .landing-contact-footer {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   border-top: 1px solid var(--line);
   background:
     radial-gradient(
@@ -25,8 +28,42 @@
     );
 }
 
+.landing-contact-footer::before,
+.landing-contact-footer::after {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 0;
+  height: clamp(14rem, 40vh, 26rem);
+  content: "";
+  pointer-events: none;
+}
+
+.landing-contact-footer::before {
+  inset: auto -0.75rem -0.75rem;
+  background: url("/footer/thick-forest-misty-3840x2160-26360.jpg") center 56% /
+    cover no-repeat;
+  filter: blur(9px);
+  opacity: 0.62;
+  transform: scale(1.02);
+  mask-image: linear-gradient(to bottom, transparent, #000 30%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 30%);
+}
+
+.landing-contact-footer::after {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in srgb, var(--page-bg) 46%, transparent)
+  );
+}
+
+.contact-footer-inner {
+  position: relative;
+  z-index: 1;
+}
+
 .landing-contact-footer .contact-aside {
-  grid-template-rows: auto;
+  grid-template-rows: auto minmax(0, 1fr);
 }
 
 .contact-content {
@@ -99,6 +136,21 @@
   display: grid;
   align-content: start;
   gap: 0.6rem;
+}
+
+.contact-aside-label {
+  color: var(--muted);
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.contact-aside-actions {
+  display: grid;
+  align-content: end;
+  justify-items: start;
+  gap: 0.9rem;
+  padding-top: 1.5rem;
 }
 
 .contact-social,

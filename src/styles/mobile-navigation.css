@@ -361,6 +361,10 @@
     margin: 0;
   }
 
+  .mobile-preference-controls .music-seek-control {
+    margin: 0;
+  }
+
   .mobile-preference-controls .music-volume-label {
     display: flex;
     justify-content: space-between;

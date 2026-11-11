@@ -582,6 +582,13 @@
   font: inherit;
 }
 
+.contact-form textarea {
+  min-height: 5rem;
+  max-height: min(9rem, 22svh);
+  overflow-y: auto;
+  resize: none;
+}
+
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
   color: var(--muted);

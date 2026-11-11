@@ -87,7 +87,7 @@ function ProjectsSection() {
             {projectData.map((project) => (
               <article key={project.number} className="project-card reveal">
                 <div
-                  className={`project-visual visual-${project.visual}`}
+                  className={`project-visual visual-${project.visual}${previewProjectId === project.number ? " is-live-preview" : ""}`}
                   aria-hidden={previewProjectId !== project.number}
                 >
                   {previewProjectId === project.number ? (

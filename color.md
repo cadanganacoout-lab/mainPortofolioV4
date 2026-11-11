@@ -15,11 +15,11 @@ ascent:
 dark theme color:
 
 base:
--#260B6B
 -#121212;
 -#1E1E1E;
--#091C4D;
--#3F3657;
+-#353935
+-#28282B
+-#899499
 
 ascent:
 
