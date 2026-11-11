@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { ArrowUpRight, Check, Copy, LoaderCircle, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { emailAddress, socialLinks } from "../../data/portfolio";
+import BrandLogo from "../shared/BrandLogo";
 
 function ContactSection() {
   const [formData, setFormData] = useState({
@@ -273,11 +274,7 @@ function ContactSection() {
 
         <div className="contact-footer-bar">
           <Link to="#home" className="brand-mark brand-mark-small">
-            <img
-              src="/images/logo/depositphotos_73262509-stock-illustration-vector-logo-for-letter-g.webp"
-              alt=""
-              aria-hidden="true"
-            />
+            <BrandLogo />
             <span>Gilang Faid</span>
           </Link>
           <p>Independently made by Gilang Nur Maulida Faid · 2026</p>

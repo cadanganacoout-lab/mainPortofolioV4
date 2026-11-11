@@ -14,6 +14,7 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { navItems } from "../../data/portfolio";
 import { useActiveSection } from "../../hooks/useActiveSection";
+import BrandLogo from "../shared/BrandLogo";
 import {
   musicTracks,
   useMusicPlayer,
@@ -393,11 +394,7 @@ function SiteHeader() {
             className="brand-mark"
             aria-label="Gilang Faid — home"
           >
-            <img
-              src="/images/logo/depositphotos_73262509-stock-illustration-vector-logo-for-letter-g.webp"
-              alt=""
-              aria-hidden="true"
-            />
+            <BrandLogo />
             <span className="brand-copy">
               <strong>Gilang Faid</strong>
               <small>Portfolio / 2026</small>

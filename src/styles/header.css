@@ -18,8 +18,20 @@
   filter: drop-shadow(0 5px 12px var(--shadow));
 }
 
+.brand-logo-dark {
+  display: none;
+}
+
+html.dark .brand-logo-light {
+  display: none;
+}
+
+html.dark .brand-logo-dark {
+  display: block;
+}
+
 html.dark .brand-mark img {
-  filter: invert(1) drop-shadow(0 5px 12px var(--shadow));
+  filter: drop-shadow(0 5px 12px var(--shadow));
 }
 
 .brand-mark strong {
