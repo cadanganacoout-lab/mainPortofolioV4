@@ -115,6 +115,11 @@ html.snap-landing .landing-contact-footer {
   object-fit: cover;
   object-position: center 28%;
   filter: grayscale(1);
+  transition: filter 400ms ease;
+}
+
+.home-portrait:hover img {
+  filter: grayscale(0);
 }
 
 .typewriter {
@@ -347,6 +352,10 @@ html.snap-landing .landing-contact-footer {
 
   .scroll-cue svg {
     animation: none;
+  }
+
+  .home-portrait img {
+    transition: none;
   }
 
   .teaser-cta {

@@ -13,8 +13,7 @@
   width: 3.25rem;
   height: 3.25rem;
   flex: 0 0 auto;
-  border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
   filter: drop-shadow(0 5px 12px var(--shadow));
 }
 

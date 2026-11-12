@@ -3,13 +3,13 @@ function BrandLogo() {
     <>
       <img
         className="brand-logo-light"
-        src="/images/logo/gilang-transparent.png"
+        src="/images/logo/logo-g-white.svg"
         alt=""
         aria-hidden="true"
       />
       <img
         className="brand-logo-dark"
-        src="/images/logo/gilang-transparent-dark.png"
+        src="/images/logo/logo-g-black.svg"
         alt=""
         aria-hidden="true"
       />

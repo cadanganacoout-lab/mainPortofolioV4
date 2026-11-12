@@ -232,6 +232,12 @@ function SiteHeader() {
   useLayoutEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
     document.documentElement.style.colorScheme = darkMode ? "dark" : "light";
+    const favicon = document.querySelector("#site-favicon");
+    if (favicon) {
+      favicon.href = darkMode
+        ? "/images/logo/favicon-black-32.png"
+        : "/images/logo/favicon-white-32.png";
+    }
   }, [darkMode]);
 
   useEffect(() => {
