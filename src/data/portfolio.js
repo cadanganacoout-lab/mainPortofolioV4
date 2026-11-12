@@ -98,11 +98,11 @@ export const languageList = ["HTML", "CSS", "JavaScript", "PHP", "Dart"];
 export const skillGroups = [
   {
     title: "Frontend",
-    items: ["React.js", "Tailwind CSS"],
+    items: ["React.js", "Tailwind CSS", "Bootstrap", "Flutter"],
   },
   {
     title: "Backend",
-    items: ["Node.js", "Express.js", "MySQL", "Laravel", "MongoDB", "Supabase"],
+    items: ["Node.js", "Express.js", "Next.js", "MySQL", "Laravel", "MongoDB", "Supabase"],
   },
   {
     title: "Design",
@@ -110,7 +110,7 @@ export const skillGroups = [
   },
   {
     title: "Tools",
-    items: ["Git & GitHub", "Vercel", "VS Code", "XAMPP", "Laragon", "Herd"],
+    items: ["Git & GitHub", "Vercel", "VS Code", "XAMPP", "Laragon", "Herd", "Docker", "Postman", "NPM", "Yarn", "Bootstrap", "Tailwind CSS"], 
   },
 ];
 
@@ -149,6 +149,11 @@ export const toolList = [
   "Laragon",
   "Bootstrap",
   "Laravel Herd",
+  "Docker",
+  "Postman",
+  "NPM",
+  "Yarn",
+  "Tailwind CSS",
 ];
 
 export const missions = [
