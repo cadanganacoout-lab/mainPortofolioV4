@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   }
 
   const contentLength = Number(req.headers["content-length"]);
-  if (Number.isFinite(contentLength) && contentLength > 12000) {
+  if (Number.isFinite(contentLength) && contentLength > 24000) {
     return respond(res, 413, { error: "Request is too large." });
   }
 
