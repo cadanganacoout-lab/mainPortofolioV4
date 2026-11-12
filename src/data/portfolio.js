@@ -78,7 +78,18 @@ export const projectData = [
     href: "https://itx-2026-web-dev-coppy-paste-smk-pg.vercel.app/",
     visual: "edufuture",
     visualLabel: "EDUFUTURE",
-    visualNote: "One place for all my projects.",
+    visualNote: "A Website To Provide Quality Education.",
+  },
+  {
+    number: "06",
+    category: "Coming Soon",
+    title: "DILT",
+    description: "Some website for reporting and learning about field practice.",
+    technologies: ["-", "-", "-"],
+    href: "-",
+    visual: "-",
+    visualLabel: "-",
+    visualNote: "Staytoned for more updates.",
   },
 ];
 
