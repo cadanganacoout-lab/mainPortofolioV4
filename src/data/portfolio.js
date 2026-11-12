@@ -185,6 +185,13 @@ export const certificates = [
     year: "2025",
     image: "/images/certificates/dicoding.webp",
   },
+  {
+    number: "04",
+    title: "ITX 2026 Web Development Participation",
+    issuer: "ITX Unida - Darullsalam Gontor",
+    year: "2026",
+    image: "/images/certificates/WEB DEVELOPMENT_GILANG NUR MAULIDA FAID_ITX26.webp",
+  },
 ];
 
 export const socialLinks = [
