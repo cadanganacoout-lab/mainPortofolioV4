@@ -82,14 +82,14 @@ export const projectData = [
   },
   {
     number: "06",
-    category: "Coming Soon",
+    category: "Digital Internship Logbook Tracker",
     title: "DILT",
-    description: "Some website for reporting and learning about field practice.",
-    technologies: ["-", "-", "-"],
-    href: "-",
-    visual: "-",
-    visualLabel: "-",
-    visualNote: "Staytoned for more updates.",
+    description: "Some website for reporting and learning about field practice, add journal and export to PDF.",
+    technologies: ["React", "Node.js", "MongoDB", "SUPABASE"],
+    href: "https://dilt.web.id/",
+    visual: "dilt",
+    visualLabel: "DILT",
+    visualNote: "A website for reporting and learning about field practice, add journal and export to PDF.",
   },
 ];
 
