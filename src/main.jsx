@@ -11,6 +11,7 @@ import {
 import App from './App';
 import AboutPage from './pages/AboutPage';
 import ProjectsPage from './pages/ProjectsPage';
+import MusicNotch from './components/layout/MusicNotch';
 import { MusicPlayerProvider } from './context/MusicPlayerContext';
 import './index.css';
 
@@ -98,6 +99,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <MusicPlayerProvider>
+        <MusicNotch />
         <AnimatedRoutes />
       </MusicPlayerProvider>
     </BrowserRouter>

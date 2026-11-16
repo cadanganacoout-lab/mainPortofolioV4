@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { ArrowDown } from "lucide-react";
-import DetailBackHeader from "../components/layout/DetailBackHeader";
+import SiteHeader from "../components/layout/SiteHeader";
 import ProjectsSection from "../components/sections/ProjectsSection";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 
@@ -13,7 +13,7 @@ function ProjectsPage() {
 
   return (
     <div className="portfolio-page detail-page projects-detail-page">
-      <DetailBackHeader />
+      <SiteHeader showSidebar={false} />
 
       <main id="main-content" className="detail-main" tabIndex="-1">
         <section id="projects" className="detail-hero projects-page-hero">

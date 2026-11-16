@@ -1,0 +1,629 @@
+.music-notch {
+  --notch-foreground: #374151;
+  --notch-muted: #6b7280;
+  --notch-accent: #4b5563;
+  --notch-line: rgb(107 114 128 / 32%);
+  --notch-range-track: rgb(107 114 128 / 26%);
+  --notch-shadow: rgb(75 85 99 / 22%);
+  --notch-control-fill: #4b5563;
+  --notch-control-text: #ffffff;
+  --notch-control-surface: rgb(255 255 255 / 36%);
+  --notch-thumb-border: #ffffff;
+  position: fixed;
+  top: calc((var(--header-height) - 2.5rem) / 2);
+  left: 50%;
+  z-index: 55;
+  width: min(820px, calc(100vw - 2rem));
+  color: var(--notch-foreground);
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+html.dark .music-notch {
+  --notch-foreground: #f3f4f6;
+  --notch-muted: #9ca3af;
+  --notch-accent: #d1d5db;
+  --notch-line: rgb(209 213 219 / 26%);
+  --notch-range-track: rgb(156 163 175 / 34%);
+  --notch-shadow: rgb(0 0 0 / 45%);
+  --notch-control-fill: #e5e7eb;
+  --notch-control-text: #374151;
+  --notch-control-surface: rgb(255 255 255 / 8%);
+  --notch-thumb-border: #374151;
+}
+
+html.dark .music-notch-panel {
+  background: rgb(31 41 55 / 58%);
+}
+
+.music-notch-trigger {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: inline-flex;
+  width: min(36rem, calc(100vw - 2rem));
+  min-width: 17rem;
+  min-height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem;
+  border: 1px solid var(--notch-line);
+  border-radius: 999px;
+  background: var(--notch-control-surface);
+  color: var(--notch-foreground);
+  box-shadow: 0 8px 24px var(--notch-shadow);
+  cursor: pointer;
+  pointer-events: auto;
+  transform: translateX(-50%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition:
+    opacity 220ms ease,
+    transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    color 160ms ease,
+    visibility 0s linear 280ms;
+}
+
+.music-notch-trigger:hover {
+  color: var(--notch-accent);
+}
+
+.music-notch-trigger:focus-visible,
+.music-notch-panel button:focus-visible,
+.music-notch-panel select:focus-visible,
+.music-notch-panel input:focus-visible {
+  outline: 2px solid var(--notch-foreground);
+  outline-offset: 3px;
+}
+
+.music-notch-equalizer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: inline-flex;
+  height: 0.85rem;
+  align-items: center;
+  gap: 3px;
+  color: var(--notch-foreground);
+  transform: translate(-50%, -50%);
+  transition: left 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.music-notch-dock-content.has-lyric .music-notch-equalizer {
+  left: calc(100% - 0.47rem);
+}
+
+.music-notch-dock-content {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 1.2rem;
+}
+
+.music-notch-current-lyric {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 0 1.5rem;
+  font-size: 0.82rem;
+  line-height: 1.2;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  animation: music-notch-dock-lyric 240ms ease both;
+}
+
+.music-notch-equalizer i {
+  width: 3px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.music-notch-equalizer.is-playing i {
+  animation: music-notch-wave 700ms ease-in-out infinite alternate;
+}
+
+.music-notch-equalizer i:nth-child(1) {
+  height: 40%;
+}
+
+.music-notch-equalizer i:nth-child(2) {
+  height: 90%;
+  animation-delay: 160ms;
+}
+
+.music-notch-equalizer i:nth-child(3) {
+  height: 60%;
+  animation-delay: 300ms;
+}
+
+.music-notch-panel {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 1.5rem;
+  background: rgb(255 255 255 / 48%);
+  box-shadow: 0 22px 65px var(--notch-shadow), 0 1px 0 rgb(255 255 255 / 8%) inset;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -0.5rem) scale(0.97);
+  visibility: hidden;
+  backdrop-filter: blur(26px) saturate(135%);
+  -webkit-backdrop-filter: blur(26px) saturate(135%);
+  transition:
+    max-height 200ms ease-in,
+    opacity 150ms ease-in,
+    transform 200ms ease-in,
+    border-color 180ms ease,
+    visibility 0s linear 200ms;
+}
+
+.music-notch.is-open .music-notch-panel {
+  max-height: min(30rem, calc(100dvh - 0.75rem));
+  overflow-y: auto;
+  border-color: var(--notch-line);
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0) scale(1);
+  visibility: visible;
+  transition:
+    max-height 340ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 240ms ease-out,
+    transform 340ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 220ms ease,
+    visibility 0s;
+}
+
+.music-notch.is-open .music-notch-trigger {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -110%) scale(0.97);
+  visibility: hidden;
+}
+
+.music-notch-content {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 1.4rem;
+  padding: 1.45rem 1.25rem 1.2rem;
+}
+
+.music-notch-playback {
+  min-width: 0;
+}
+
+.music-notch-track {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.music-notch-art {
+  display: block;
+  width: 5rem;
+  height: 5rem;
+  flex: 0 0 auto;
+  border: 1px solid var(--notch-line);
+  border-radius: 0.8rem;
+  object-fit: cover;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 25%);
+}
+
+.music-notch-track-copy {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  gap: 0.25rem;
+}
+
+.music-notch-track-heading {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.music-notch-track-copy strong,
+.music-notch-track-copy span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.music-notch-track-copy strong {
+  min-width: 0;
+  flex: 1;
+  color: var(--notch-foreground);
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+}
+
+.music-notch-track-copy span {
+  color: var(--notch-muted);
+  font-size: 0.75rem;
+}
+
+.music-notch-seek {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 1.15rem;
+}
+
+.music-notch-seek input,
+.music-notch-volume input {
+  width: 100%;
+  height: 0.35rem;
+  margin: 0;
+  appearance: none;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--notch-accent) 0 var(--music-seek-progress, 0%),
+    var(--notch-range-track) var(--music-seek-progress, 0%) 100%
+  );
+  cursor: pointer;
+}
+
+.music-notch-volume input {
+  background: linear-gradient(
+    to right,
+    var(--notch-accent) 0 var(--music-volume-progress, 0%),
+    var(--notch-range-track) var(--music-volume-progress, 0%) 100%
+  );
+}
+
+.music-notch-seek input:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.music-notch-seek input::-webkit-slider-thumb,
+.music-notch-volume input::-webkit-slider-thumb {
+  width: 0.8rem;
+  height: 0.8rem;
+  appearance: none;
+  border: 2px solid var(--notch-thumb-border);
+  border-radius: 50%;
+  background: var(--notch-accent);
+  box-shadow: 0 0 0 1px var(--notch-accent);
+}
+
+.music-notch-seek input::-moz-range-thumb,
+.music-notch-volume input::-moz-range-thumb {
+  width: 0.65rem;
+  height: 0.65rem;
+  border: 2px solid var(--notch-thumb-border);
+  border-radius: 50%;
+  background: var(--notch-accent);
+  box-shadow: 0 0 0 1px var(--notch-accent);
+}
+
+.music-notch-times {
+  display: flex;
+  justify-content: space-between;
+  color: var(--notch-muted);
+  font-size: 0.65rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.music-notch-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 0.75rem;
+}
+
+.music-notch-controls button {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--notch-foreground);
+  cursor: pointer;
+}
+
+.music-notch-controls button:hover {
+  color: var(--notch-accent);
+}
+
+.music-notch-controls .music-notch-play {
+  width: 3rem;
+  height: 3rem;
+  background: var(--notch-control-fill);
+  color: var(--notch-control-text);
+}
+
+.music-notch-controls .music-notch-play:hover {
+  filter: brightness(1.12);
+  color: var(--notch-control-text);
+  transform: scale(1.04);
+}
+
+.music-notch-controls .music-notch-mute {
+  margin-left: auto;
+  color: var(--notch-muted);
+}
+
+.music-notch-track-picker {
+  min-width: 6rem;
+  flex: 0 1 9rem;
+}
+
+.music-notch-track-picker select {
+  width: 100%;
+  min-height: 2.25rem;
+  overflow: hidden;
+  padding: 0 0.65rem;
+  border: 1px solid var(--notch-line);
+  border-radius: 0.65rem;
+  background: var(--notch-control-surface);
+  color: var(--notch-foreground);
+  font-size: 0.68rem;
+  text-overflow: ellipsis;
+}
+
+.music-notch-track-picker option {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+html.dark .music-notch-track-picker option {
+  background: #1f2937;
+  color: #f3f4f6;
+}
+
+.music-notch-volume {
+  display: flex;
+  width: min(6.5rem, 26%);
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--notch-muted);
+}
+
+.music-notch-lyrics {
+  min-width: 0;
+  padding: 0.25rem 2.6rem 0 1.4rem;
+  border-left: 1px solid var(--notch-line);
+}
+
+.music-notch-lyrics-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+.music-notch-lyrics-heading h2 {
+  margin: 0;
+  color: var(--notch-muted);
+  font-size: 0.65rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.music-notch-lyrics-heading span {
+  color: var(--notch-accent);
+  font-size: 0.58rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+}
+
+.music-notch-lyric-lines {
+  display: grid;
+  gap: 0.45rem;
+  align-content: center;
+  min-height: 8rem;
+}
+
+.music-notch-lyric-lines p {
+  overflow: hidden;
+  margin: 0;
+  color: var(--notch-muted);
+  font-size: clamp(0.8rem, 1.5vw, 0.95rem);
+  line-height: 1.4;
+  opacity: 0.65;
+  text-overflow: ellipsis;
+  transition:
+    color 240ms ease,
+    opacity 240ms ease,
+    transform 240ms ease,
+    font-size 240ms ease;
+  animation: music-notch-lyric-enter 280ms ease both;
+}
+
+.music-notch-lyric-lines p:nth-child(2) {
+  animation-delay: 35ms;
+}
+
+.music-notch-lyric-lines p:nth-child(3) {
+  animation-delay: 70ms;
+}
+
+.music-notch-lyric-lines p:nth-child(4) {
+  animation-delay: 105ms;
+}
+
+.music-notch-lyric-lines p.is-current {
+  color: var(--notch-foreground);
+  font-size: clamp(0.95rem, 1.8vw, 1.12rem);
+  font-weight: 650;
+  opacity: 1;
+}
+
+.music-notch-lyric-lines p.is-next {
+  color: var(--notch-muted);
+  opacity: 0.82;
+}
+
+.music-notch-lyrics-empty {
+  display: grid;
+  min-height: 8rem;
+  place-content: center;
+  justify-items: center;
+  gap: 0.65rem;
+  color: var(--notch-muted);
+  text-align: center;
+}
+
+.music-notch-lyrics-empty svg {
+  color: var(--notch-accent);
+}
+
+.music-notch-lyrics-empty p {
+  max-width: 15rem;
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+@keyframes music-notch-wave {
+  from { transform: scaleY(0.35); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes music-notch-lyric-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.35rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes music-notch-dock-lyric {
+  from {
+    opacity: 0;
+    transform: translateY(0.2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .music-notch {
+    --notch-mobile-top: calc((var(--header-height) - 2rem) / 2 + 0.5rem);
+    top: var(--notch-mobile-top);
+    width: calc(100vw - 1rem);
+  }
+
+  html.snap-landing .music-notch {
+    --notch-mobile-top: calc(var(--header-height) + 0.75rem);
+    top: var(--notch-mobile-top);
+  }
+
+  .music-notch-trigger {
+    width: calc(100vw - 2rem);
+    min-width: 0;
+    min-height: 2rem;
+  }
+
+  .music-notch-panel {
+    top: calc(0.5rem - var(--notch-mobile-top));
+    border-radius: 1.15rem;
+  }
+
+  .music-notch.is-open .music-notch-panel {
+    max-height: calc(100dvh - 1rem);
+  }
+
+  .music-notch-content {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.85rem;
+    padding: 1rem 0.85rem 0.75rem;
+  }
+
+  .music-notch-art {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .music-notch-track-picker {
+    min-width: 4.75rem;
+    flex-basis: 6rem;
+  }
+
+  .music-notch-controls {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.35rem;
+  }
+
+  .music-notch-controls button {
+    justify-self: center;
+  }
+
+  .music-notch-controls > button:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .music-notch-controls .music-notch-play {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .music-notch-controls > button:nth-child(3) {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .music-notch-controls .music-notch-mute {
+    grid-column: 1;
+    grid-row: 2;
+    margin-left: 0;
+  }
+
+  .music-notch-volume {
+    grid-column: 2 / -1;
+    grid-row: 2;
+    width: 100%;
+    justify-content: center;
+    padding: 0 0.5rem;
+  }
+
+  .music-notch-lyrics {
+    padding: 0.85rem 0.2rem 0.1rem;
+    border-top: 1px solid var(--notch-line);
+    border-left: 0;
+  }
+
+  .music-notch-lyric-lines,
+  .music-notch-lyrics-empty {
+    min-height: 5rem;
+  }
+}
+
+@media (min-width: 381px) and (max-width: 640px) {
+  .music-notch-track-picker {
+    min-width: 6rem;
+    flex-basis: 7.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .music-notch *,
+  .music-notch *::before,
+  .music-notch *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

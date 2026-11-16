@@ -1,37 +1,15 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import {
-  Headphones,
-  Menu,
-  MoonStar,
-  Pause,
-  Play,
-  SunMedium,
-  Volume1,
-  Volume2,
-  VolumeX,
-  X,
-} from "lucide-react";
+import { ArrowLeft, Menu, MoonStar, SunMedium, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { navItems } from "../../data/portfolio";
 import { useActiveSection } from "../../hooks/useActiveSection";
 import BrandLogo from "../shared/BrandLogo";
-import {
-  musicTracks,
-  useMusicPlayer,
-} from "../../context/MusicPlayerContext";
 
 const sectionIdsByPath = {
   "/": ["home", "about", "projects", "contact"],
   "/about": ["about", "journey", "milestones"],
   "/projects": ["projects"],
 };
-
-function formatMusicTime(time) {
-  const totalSeconds = Number.isFinite(time) ? Math.max(0, Math.floor(time)) : 0;
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = String(totalSeconds % 60).padStart(2, "0");
-  return `${minutes}:${seconds}`;
-}
 
 function getNavigationHref(item, pathname) {
   if (item.section === "journey" || item.section === "milestones") {
@@ -52,143 +30,7 @@ function getCurrentNavigationState(item, pathname, activeSection) {
   return undefined;
 }
 
-function MusicPlaybackControls({
-  id,
-  isMuted,
-  isMusicPanelOpen,
-  musicOn,
-  currentTime,
-  duration,
-  selectedTrack,
-  seekTo,
-  setSelectedTrack,
-  setIsMuted,
-  setIsMusicPanelOpen,
-  setMusicOn,
-  setVolume,
-  volume,
-}) {
-  if (!isMusicPanelOpen) return null;
-
-  return (
-    <div
-      id={id}
-      className="music-popover"
-      role="group"
-      aria-label="Music playback controls"
-    >
-      <div className="music-popover-heading">
-        <span className="music-cover" aria-hidden="true">
-          <Headphones size={18} />
-        </span>
-        <div className="music-track">
-          <strong>{selectedTrack.title}</strong>
-          <span>{selectedTrack.artist}</span>
-        </div>
-        <button
-          type="button"
-          onClick={() => setIsMusicPanelOpen(false)}
-          className="music-close"
-          aria-label="Close music controls"
-        >
-          <X size={16} />
-        </button>
-      </div>
-
-      <label className="music-track-picker">
-        <span>Choose a track</span>
-        <select
-          value={selectedTrack.fileName}
-          onChange={(event) => {
-            const nextTrack = musicTracks.find(
-              (track) => track.fileName === event.target.value,
-            );
-            if (nextTrack) setSelectedTrack(nextTrack);
-          }}
-          aria-label="Choose a music track"
-        >
-          {musicTracks.map((track) => (
-            <option key={track.fileName} value={track.fileName}>
-              {track.title} — {track.artist}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <div className="music-actions">
-        <button
-          type="button"
-          onClick={() => setMusicOn((prev) => !prev)}
-          className="music-play-button"
-          aria-label={musicOn ? "Pause music" : "Play music"}
-        >
-          {musicOn ? (
-            <Pause size={17} fill="currentColor" />
-          ) : (
-            <Play size={17} fill="currentColor" />
-          )}
-          <span>{musicOn ? "Pause playback" : "Play music"}</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => setIsMuted((prev) => !prev)}
-          className={`music-volume-button${isMuted ? "" : " volume-on"}`}
-          aria-label={isMuted ? "Unmute music" : "Mute music"}
-        >
-          {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-        </button>
-      </div>
-
-      <label className="music-seek-control">
-        <span className="music-seek-times">
-          <span>{formatMusicTime(currentTime)}</span>
-          <span>{formatMusicTime(duration)}</span>
-        </span>
-        <input
-          type="range"
-          min="0"
-          max={duration}
-          step="0.1"
-          value={Math.min(currentTime, duration)}
-          disabled={duration <= 0}
-          onChange={(event) => seekTo(Number(event.target.value))}
-          aria-label="Seek music playback"
-          style={{
-            "--seek-progress":
-              duration > 0 ? `${(currentTime / duration) * 100}%` : "0%",
-          }}
-        />
-      </label>
-
-      <label className="music-volume-control">
-        <span className="music-volume-label">
-          <span>{isMuted ? "Volume · muted" : "Volume"}</span>
-          <span>{isMuted ? "—" : `${volume}%`}</span>
-        </span>
-        <span className="music-volume-slider-row">
-          {volume === 0 ? <VolumeX size={15} /> : <Volume1 size={15} />}
-          <input
-            type="range"
-            min="0"
-            max="100"
-            step="1"
-            value={volume}
-            onChange={(event) => {
-              const nextVolume = Number(event.target.value);
-              setVolume(nextVolume);
-              setIsMuted(nextVolume === 0);
-            }}
-            aria-label="Music volume"
-            style={{ "--volume-progress": `${volume}%` }}
-          />
-        </span>
-      </label>
-
-    </div>
-  );
-}
-
-function SiteHeader() {
+function SiteHeader({ showSidebar = true }) {
   const { pathname } = useLocation();
   const sectionIds = sectionIdsByPath[pathname] ?? sectionIdsByPath["/"];
   const visibleNavItems =
@@ -199,19 +41,6 @@ function SiteHeader() {
             item.section !== "journey" && item.section !== "milestones",
         );
   const activeSection = useActiveSection(sectionIds);
-  const {
-    currentTime,
-    duration,
-    isMuted,
-    musicOn,
-    seekTo,
-    selectedTrack,
-    setIsMuted,
-    setMusicOn,
-    setSelectedTrack,
-    setVolume,
-    volume,
-  } = useMusicPlayer();
   const [darkMode, setDarkMode] = useState(() => {
     try {
       const savedTheme = window.localStorage.getItem("gilang-portfolio-theme");
@@ -223,10 +52,7 @@ function SiteHeader() {
     }
     return window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
-  const [isMusicPanelOpen, setIsMusicPanelOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const desktopMusicControlRef = useRef(null);
-  const mobileMusicControlRef = useRef(null);
   const mobileMenuRef = useRef(null);
   const mobileMenuTriggerRef = useRef(null);
   useLayoutEffect(() => {
@@ -239,30 +65,6 @@ function SiteHeader() {
         : "/images/logo/favicon-white-32.png";
     }
   }, [darkMode]);
-
-  useEffect(() => {
-    if (!isMusicPanelOpen) return undefined;
-
-    const closeOnOutsideClick = (event) => {
-      const target = event.target;
-      if (
-        !desktopMusicControlRef.current?.contains(target) &&
-        !mobileMusicControlRef.current?.contains(target)
-      ) {
-        setIsMusicPanelOpen(false);
-      }
-    };
-    const closeOnEscape = (event) => {
-      if (event.key === "Escape") setIsMusicPanelOpen(false);
-    };
-
-    document.addEventListener("pointerdown", closeOnOutsideClick);
-    document.addEventListener("keydown", closeOnEscape);
-    return () => {
-      document.removeEventListener("pointerdown", closeOnOutsideClick);
-      document.removeEventListener("keydown", closeOnEscape);
-    };
-  }, [isMusicPanelOpen]);
 
   useEffect(() => {
     if (!isMobileMenuOpen) return undefined;
@@ -281,7 +83,6 @@ function SiteHeader() {
       if (event.key === "Escape") {
         event.preventDefault();
         setIsMobileMenuOpen(false);
-        setIsMusicPanelOpen(false);
         mobileMenuTriggerRef.current?.focus();
         return;
       }
@@ -316,7 +117,6 @@ function SiteHeader() {
     const closeMenuOnDesktop = (event) => {
       if (event.matches) {
         setIsMobileMenuOpen(false);
-        setIsMusicPanelOpen(false);
       }
     };
 
@@ -349,7 +149,6 @@ function SiteHeader() {
 
   const closeMobileMenu = (restoreFocus = true) => {
     setIsMobileMenuOpen(false);
-    setIsMusicPanelOpen(false);
     if (restoreFocus) mobileMenuTriggerRef.current?.focus();
   };
 
@@ -368,25 +167,6 @@ function SiteHeader() {
     });
   };
 
-  const renderMusicControls = (id) => (
-    <MusicPlaybackControls
-      id={id}
-      currentTime={currentTime}
-      duration={duration}
-      isMuted={isMuted}
-      isMusicPanelOpen={isMusicPanelOpen}
-      musicOn={musicOn}
-      selectedTrack={selectedTrack}
-      seekTo={seekTo}
-      setSelectedTrack={setSelectedTrack}
-      setIsMuted={setIsMuted}
-      setIsMusicPanelOpen={setIsMusicPanelOpen}
-      setMusicOn={setMusicOn}
-      setVolume={setVolume}
-      volume={volume}
-    />
-  );
-
   return (
     <>
       <a className="skip-link" href="#main-content">
@@ -395,47 +175,37 @@ function SiteHeader() {
 
       <header className="site-header fixed inset-x-0 top-0 z-50 border-b border-[var(--line)] bg-[var(--panel)]/80 backdrop-blur-xl">
         <nav className="site-header-inner" aria-label="Site header">
-          <Link
-            to={pathname === "/" ? "#home" : "/#home"}
-            className="brand-mark"
-            aria-label="Gilang Faid — home"
-          >
-            <BrandLogo />
-            <span className="brand-copy">
-              <strong>Gilang Faid</strong>
-              <small>Portfolio / 2026</small>
-            </span>
-          </Link>
+          <div className="header-brand-group">
+            {pathname !== "/" && (
+              <Link
+                to="/#home"
+                className="icon-button header-back-link"
+                aria-label="Back to home"
+                title="Back to home"
+              >
+                <ArrowLeft size={18} aria-hidden="true" />
+              </Link>
+            )}
+            <Link
+              to={pathname === "/" ? "#home" : "/#home"}
+              className="brand-mark"
+              aria-label="Gilang Faid logo — home"
+            >
+              <BrandLogo />
+            </Link>
+            <Link
+              to={pathname === "/" ? "#home" : "/#home"}
+              className="brand-copy-link"
+              aria-label="Gilang Faid — home"
+            >
+              <span className="brand-copy">
+                <strong>Gilang Faid</strong>
+                <small>Portfolio / 2026</small>
+              </span>
+            </Link>
+          </div>
 
           <div className="header-controls">
-            <div className="music-control" ref={desktopMusicControlRef}>
-              <button
-                type="button"
-                className={`music-trigger desktop-music-trigger${musicOn && !isMuted ? " is-playing" : ""}`}
-                onClick={() => setIsMusicPanelOpen((prev) => !prev)}
-                aria-label={
-                  isMusicPanelOpen
-                    ? "Close music controls"
-                    : "Open music controls"
-                }
-                aria-expanded={isMusicPanelOpen}
-                aria-controls={
-                  isMusicPanelOpen ? "music-controls-desktop" : undefined
-                }
-              >
-                <Headphones size={18} />
-                <span className="music-trigger-label">Music</span>
-                {musicOn && !isMuted && (
-                  <span className="music-level" aria-hidden="true">
-                    <i />
-                    <i />
-                    <i />
-                  </span>
-                )}
-              </button>
-              {renderMusicControls("music-controls-desktop")}
-            </div>
-
             <button
               type="button"
               onClick={toggleTheme}
@@ -471,25 +241,27 @@ function SiteHeader() {
         </nav>
       </header>
 
-      <nav className="desktop-section-rail" aria-label="Portfolio navigation">
-        <span className="section-rail-caption">Explore</span>
-        {visibleNavItems.map((item, index) => (
-          <Link
-            key={item.label}
-            to={getNavigationHref(item, pathname)}
-            className="section-rail-link"
-            aria-current={getCurrentNavigationState(
-              item,
-              pathname,
-              activeSection,
-            )}
-            aria-label={item.label}
-          >
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <strong>{item.label}</strong>
-          </Link>
-        ))}
-      </nav>
+      {showSidebar && (
+        <nav className="desktop-section-rail" aria-label="Portfolio navigation">
+          <span className="section-rail-caption">Explore</span>
+          {visibleNavItems.map((item, index) => (
+            <Link
+              key={item.label}
+              to={getNavigationHref(item, pathname)}
+              className="section-rail-link"
+              aria-current={getCurrentNavigationState(
+                item,
+                pathname,
+                activeSection,
+              )}
+              aria-label={item.label}
+            >
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <strong>{item.label}</strong>
+            </Link>
+          ))}
+        </nav>
+      )}
 
       <button
         type="button"
@@ -547,40 +319,17 @@ function SiteHeader() {
           <div className="mobile-menu-preferences">
             <p className="mobile-menu-eyebrow">Your preferences</p>
             <div className="mobile-menu-controls">
-              <div className="mobile-preference-controls" ref={mobileMusicControlRef}>
-                <div className="mobile-menu-control-row">
-                  <button
-                    type="button"
-                    onClick={() => setIsMusicPanelOpen((prev) => !prev)}
-                    aria-expanded={isMusicPanelOpen}
-                    aria-controls={
-                      isMusicPanelOpen ? "music-controls-mobile" : undefined
-                    }
-                    className={`music-trigger${musicOn && !isMuted ? " is-playing" : ""}`}
-                  >
-                    <Headphones size={18} />
-                    <span className="music-trigger-label">Music</span>
-                    {musicOn && !isMuted && (
-                      <span className="music-level" aria-hidden="true">
-                        <i />
-                        <i />
-                        <i />
-                      </span>
-                    )}
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={toggleTheme}
-                    aria-label={`Switch to ${darkMode ? "light" : "dark"} theme`}
-                    aria-pressed={darkMode}
-                    className="icon-button mobile-theme-toggle"
-                  >
-                    {darkMode ? <SunMedium size={16} /> : <MoonStar size={16} />}
-                    <span>Theme</span>
-                  </button>
-                </div>
-                {renderMusicControls("music-controls-mobile")}
+              <div className="mobile-menu-control-row">
+                <button
+                  type="button"
+                  onClick={toggleTheme}
+                  aria-label={`Switch to ${darkMode ? "light" : "dark"} theme`}
+                  aria-pressed={darkMode}
+                  className="icon-button mobile-theme-toggle"
+                >
+                  {darkMode ? <SunMedium size={16} /> : <MoonStar size={16} />}
+                  <span>Theme</span>
+                </button>
               </div>
             </div>
           </div>

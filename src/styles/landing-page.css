@@ -295,6 +295,15 @@ html.snap-landing .landing-contact-footer {
 }
 
 @media (max-width: 767px) {
+  .home-section {
+    border-bottom: 0;
+    background: transparent;
+  }
+
+  .about-teaser-section {
+    background: transparent;
+  }
+
   .landing-section-inner {
     padding-block: clamp(2rem, 6svh, 3.5rem);
     padding-inline: clamp(1rem, 6vw, 2rem);
@@ -302,12 +311,12 @@ html.snap-landing .landing-contact-footer {
 
   .home-layout {
     gap: clamp(1rem, 3svh, 1.5rem);
-    padding-top: 0;
+    padding-top: clamp(2.25rem, 5svh, 3rem);
     padding-bottom: 0;
   }
 
   .home-portrait {
-    width: min(58%, 16rem);
+    width: min(68%, 18rem);
     justify-self: end;
   }
 
@@ -321,11 +330,11 @@ html.snap-landing .landing-contact-footer {
 
 @media (max-width: 420px) {
   .hero-title {
-    font-size: clamp(3.5rem, 15vw, 4.4rem);
+    font-size: clamp(3.75rem, 16vw, 4.7rem);
   }
 
   .teaser-heading h2 {
-    font-size: clamp(2.15rem, 8.5vw, 2.75rem);
+    font-size: clamp(2.3rem, 9vw, 2.8rem);
   }
 
 }
@@ -337,6 +346,7 @@ html.snap-landing .landing-contact-footer {
 
   .home-layout {
     gap: 1rem;
+    padding-top: 2rem;
   }
 
   .home-portrait {

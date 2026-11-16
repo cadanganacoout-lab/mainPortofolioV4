@@ -86,4 +86,26 @@ vite.config.js           Vite and Tailwind configuration
 
 ## Music playback
 
-Browsers may prevent audio from playing before a user interaction. Open the **Music** control in the navbar and press play to start playback. Use the volume slider or mute button to adjust the sound.
+Hover over the floating music dock at the top of the page, or tap it on a touch device, to open the player. Press play to start audio, choose a track from the selector, and adjust volume with the slider or mute button.
+
+## Synchronizing lyrics
+
+The lyric sync script requires Python and FFmpeg. Install its Python dependency once:
+
+```bash
+python -m pip install stable-ts
+```
+
+Use the script with original or licensed lyrics and audio. The input `.lrc` should contain untimed lyric lines; the script writes timestamped output to a separate folder so it can be reviewed before replacing the website's lyric file.
+
+```bash
+python public/lyrics/sync/sync_lrc.py --lrc path/to/song.lrc --audio "path/to/song.mp3" --out-dir public/lyrics/synced
+```
+
+For multiple songs, the `.lrc` and audio files must have matching base names:
+
+```bash
+python public/lyrics/sync/sync_lrc.py --lrc-dir path/to/lyrics --audio-dir path/to/audio --out-dir public/lyrics/synced
+```
+
+Review the generated timestamps, then copy the approved `.lrc` file to its mapped path in `public/lyrics/`.

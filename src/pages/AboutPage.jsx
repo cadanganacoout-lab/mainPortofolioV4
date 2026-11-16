@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import DetailBackHeader from "../components/layout/DetailBackHeader";
+import SiteHeader from "../components/layout/SiteHeader";
 import AboutSection from "../components/sections/AboutSection";
 import CertificatesSection from "../components/sections/CertificatesSection";
 import JourneySection from "../components/sections/JourneySection";
@@ -14,7 +14,7 @@ function AboutPage() {
 
   return (
     <div className="portfolio-page detail-page about-detail-page">
-      <DetailBackHeader />
+      <SiteHeader showSidebar={false} />
 
       <main id="main-content" className="detail-main" tabIndex="-1">
         <AboutSection />

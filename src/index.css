@@ -2,6 +2,7 @@
 @import 'tailwindcss';
 @import './styles/base.css';
 @import './styles/header.css';
+@import './styles/music-notch.css';
 @import './styles/portfolio.css';
 @import './styles/project-dialog.css';
 @import './styles/skills.css';
