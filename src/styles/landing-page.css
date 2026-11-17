@@ -37,10 +37,10 @@ html.snap-landing .landing-contact-footer {
     ),
     linear-gradient(
       120deg,
-      var(--page-bg) 0%,
-      var(--page-bg) 60%,
-      var(--color-surface) 90%,
-      var(--color-surface-tertiary) 100%
+      color-mix(in srgb, var(--page-bg) 80%, transparent) 0%,
+      color-mix(in srgb, var(--page-bg) 80%, transparent) 60%,
+      color-mix(in srgb, var(--color-surface) 80%, transparent) 90%,
+      color-mix(in srgb, var(--color-surface-tertiary) 80%, transparent) 100%
     );
 }
 
@@ -211,10 +211,10 @@ html.snap-landing .landing-contact-footer {
     ),
     linear-gradient(
       215deg,
-      var(--page-bg) 0%,
-      var(--page-bg) 60%,
-      var(--color-surface) 90%,
-      var(--color-surface-secondary) 100%
+      color-mix(in srgb, var(--page-bg) 80%, transparent) 0%,
+      color-mix(in srgb, var(--page-bg) 80%, transparent) 60%,
+      color-mix(in srgb, var(--color-surface) 80%, transparent) 90%,
+      color-mix(in srgb, var(--color-surface-secondary) 80%, transparent) 100%
     );
 }
 
@@ -263,10 +263,10 @@ html.snap-landing .landing-contact-footer {
     ),
     linear-gradient(
       145deg,
-      var(--page-bg) 0%,
-      var(--page-bg) 60%,
-      var(--color-surface-tertiary) 90%,
-      var(--color-surface-accent) 100%
+      color-mix(in srgb, var(--page-bg) 80%, transparent) 0%,
+      color-mix(in srgb, var(--page-bg) 80%, transparent) 60%,
+      color-mix(in srgb, var(--color-surface-tertiary) 80%, transparent) 90%,
+      color-mix(in srgb, var(--color-surface-accent) 80%, transparent) 100%
     );
 }
 

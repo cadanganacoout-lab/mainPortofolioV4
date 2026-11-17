@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import LocationMapCard from "./LocationMapCard";
 import TypewriterText from "../shared/TypewriterText";
 
 function AboutTeaserSection() {
@@ -8,7 +9,7 @@ function AboutTeaserSection() {
 
   return (
     <section id="about" className="landing-section about-teaser-section">
-      <div className="landing-section-inner">
+      <div className="landing-section-inner about-teaser-layout">
         <div className="teaser-heading reveal">
           <h2>
             <TypewriterText
@@ -28,6 +29,9 @@ function AboutTeaserSection() {
           >
             About <ArrowUpRight size={16} aria-hidden="true" />
           </Link>
+        </div>
+        <div className="about-map-slot reveal">
+          <LocationMapCard />
         </div>
       </div>
     </section>

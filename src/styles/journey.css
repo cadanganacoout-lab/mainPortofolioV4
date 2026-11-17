@@ -1,7 +1,7 @@
 .journey-grid {
   display: grid;
-  gap: 1.5rem;
-  align-items: start;
+  gap: 0.8rem;
+  align-items: stretch;
   grid-template-columns: 1fr;
   grid-template-areas:
     "intro"
@@ -14,6 +14,7 @@
 
 .journey-intro {
   grid-area: intro;
+  align-self: center;
 }
 
 .journey-education {
@@ -36,6 +37,32 @@
 .journey-tools-marquee {
   grid-area: tools;
   margin-top: 0;
+}
+
+.journey-education,
+.journey-languages,
+.journey-technologies,
+.journey-skill-levels,
+.journey-tools-marquee {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: var(--color-surface-gradient);
+  box-shadow: 0 1rem 2.5rem var(--shadow);
+}
+
+.journey-education,
+.journey-skill-levels {
+  padding: 1rem;
+}
+
+.journey-languages,
+.journey-technologies {
+  padding: 0.9rem;
+}
+
+.journey-tools-marquee {
+  padding: 0;
 }
 
 .journey-languages h3 {
@@ -113,7 +140,7 @@
 .education-list li {
   display: grid;
   gap: 0.6rem;
-  padding-top: 0.5rem;
+  padding-top: 0.65rem;
   border-top: 1px solid var(--line);
 }
 
@@ -138,7 +165,7 @@
 
 .skill-grid {
   display: grid;
-  gap: 0.9rem;
+  gap: 0.7rem;
 }
 
 .skill-item {
@@ -151,7 +178,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  font-size: 0.76rem;
+  font-size: 0.68rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
@@ -160,7 +187,7 @@
 .skill-bar {
   position: relative;
   overflow: hidden;
-  height: 0.55rem;
+  height: 0.35rem;
   border-radius: 9999px;
   background: var(--color-raised-gradient);
   border: 1px solid var(--line);

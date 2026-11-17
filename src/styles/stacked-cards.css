@@ -1,0 +1,23 @@
+.project-grid.stacked-card-list,
+.certificate-grid.stacked-card-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 1.5rem;
+}
+
+.stacked-card-list > .project-card,
+.stacked-card-list > .certificate-card {
+  position: sticky;
+  top: calc(var(--header-height) + 1rem + min(var(--stack-offset, 0rem), 2.5rem));
+  z-index: var(--stack-order);
+}
+
+@media (max-width: 640px) {
+  .stacked-card-list > .project-card,
+  .stacked-card-list > .certificate-card {
+    position: relative;
+    top: auto;
+    z-index: auto;
+  }
+}

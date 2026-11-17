@@ -25,7 +25,7 @@ function ProjectsPage() {
               <em>made & learned.</em>
             </h1>
             <p className="detail-intro">
-              Five class, web, mobile, and education projects that mark
+              Six class, web, mobile, and education projects that mark
               different steps in my learning journey.
             </p>
             <a href="#project-list" className="text-link detail-scroll-link">

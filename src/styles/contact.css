@@ -21,10 +21,10 @@
     ),
     linear-gradient(
       125deg,
-      var(--page-bg) 0%,
-      var(--page-bg) 60%,
-      var(--color-surface) 90%,
-      var(--color-surface-accent) 100%
+      color-mix(in srgb, var(--page-bg) 80%, transparent) 0%,
+      color-mix(in srgb, var(--page-bg) 80%, transparent) 60%,
+      color-mix(in srgb, var(--color-surface) 80%, transparent) 90%,
+      color-mix(in srgb, var(--color-surface-accent) 80%, transparent) 100%
     );
 }
 
@@ -199,7 +199,7 @@
   }
 
   .journey-grid {
-    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
     grid-template-areas:
       "intro education"
       "languages technologies"
@@ -211,6 +211,27 @@
 @media (min-width: 1024px) {
   .contact-panel {
     grid-template-columns: minmax(0, 1.3fr) minmax(12rem, 0.7fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .journey-grid {
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  }
+
+  .education-list li {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+  }
+
+  .education-list li > span {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: right;
+  }
+
+  .education-list li > div {
+    grid-column: 1 / -1;
   }
 }
 

@@ -1,8 +1,29 @@
+import { useState } from "react";
 import { certificates } from "../../data/portfolio";
+import "../../styles/certificate-fan.css";
 
 function CertificatesSection() {
+  const [hoveredNumber, setHoveredNumber] = useState(null);
+  const [focusedNumber, setFocusedNumber] = useState(null);
+  const [pinnedNumber, setPinnedNumber] = useState(null);
+  const [statusMessage, setStatusMessage] = useState("");
+  const activeNumber = focusedNumber ?? hoveredNumber ?? pinnedNumber;
+
   return (
-    <section id="milestones" className="section-space">
+    <section
+      id="milestones"
+      className="section-space certificate-section"
+      onPointerLeave={() => setHoveredNumber(null)}
+      onFocusCapture={(event) => {
+        const card = event.target.closest("[data-certificate-number]");
+        if (card) setFocusedNumber(card.dataset.certificateNumber);
+      }}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setFocusedNumber(null);
+        }
+      }}
+    >
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="section-topline">
           <div className="section-heading">
@@ -14,35 +35,73 @@ function CertificatesSection() {
             </h2>
           </div>
           <p className="section-side-note">
-            Activities and milestones that show my growth, curiosity, and commitment to learning.
+            Activities and milestones that show my growth, curiosity, and
+            commitment to learning.
           </p>
         </div>
 
-        <div className="certificate-grid mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-          {certificates.map((certificate) => (
-            <div key={certificate.number} className="certificate-card reveal">
-              <div className="certificate-image-wrap">
+        <p className="certificate-fan-instruction">
+          Hover or focus to spotlight · Tap to pin
+        </p>
+
+        <div
+          className={`certificate-fan${activeNumber ? " has-spotlight" : ""}`}
+        >
+          {certificates.map((certificate, index) => (
+            <button
+              key={certificate.number}
+              type="button"
+              className={`certificate-card certificate-fan-card${activeNumber === certificate.number ? " is-active" : ""}`}
+              data-certificate-number={certificate.number}
+              aria-label={`Spotlight ${certificate.title}, ${certificate.issuer}, ${certificate.year}`}
+              aria-pressed={pinnedNumber === certificate.number}
+              style={{ "--certificate-order": index }}
+              onPointerEnter={(event) => {
+                if (event.pointerType === "mouse") {
+                  setHoveredNumber(certificate.number);
+                }
+              }}
+              onClick={() => {
+                const isPinned = pinnedNumber === certificate.number;
+                setPinnedNumber(isPinned ? null : certificate.number);
+                setStatusMessage(
+                  isPinned
+                    ? `${certificate.title} spotlight released.`
+                    : `${certificate.title} pinned in the spotlight.`,
+                );
+              }}
+            >
+              <span className="certificate-image-wrap">
                 <img
                   src={certificate.image}
                   alt={certificate.title}
                   className="certificate-image"
+                  loading="lazy"
                 />
-              </div>
-              <div className="certificate-content">
-                <span>{certificate.number}</span>
-                <h3>{certificate.title}</h3>
-                <p>
+              </span>
+              <span className="certificate-content">
+                <span className="certificate-number">
+                  {certificate.number} / MILESTONE
+                </span>
+                <span className="certificate-title">{certificate.title}</span>
+                <span className="certificate-issuer">
                   {certificate.issuer} · {certificate.year}
-                </p>
-              </div>
-            </div>
+                </span>
+              </span>
+            </button>
           ))}
         </div>
+        <p className="sr-only" role="status" aria-live="polite">
+          {statusMessage}
+        </p>
 
         <div className="achievement-summary">
           <div>
             <span className="code-note-label">ACTIVE GROWTH</span>
-            <strong>Developing skills through real projects, competitions, and learning communities.</strong>
+            <strong>
+              Developing skills through real projects, competitions, and
+              learning communities.
+            </strong>
           </div>
         </div>
       </div>
