@@ -22,12 +22,12 @@
 html.dark .music-notch {
   --notch-foreground: #f3f4f6;
   --notch-muted: #9ca3af;
-  --notch-accent: #d1d5db;
-  --notch-line: rgb(209 213 219 / 26%);
+  --notch-accent: #FFBF00;
+  --notch-line: rgb(255 191 0 / 26%);
   --notch-range-track: rgb(156 163 175 / 34%);
   --notch-shadow: rgb(0 0 0 / 45%);
-  --notch-control-fill: #e5e7eb;
-  --notch-control-text: #374151;
+  --notch-control-fill: #FFD700;
+  --notch-control-text: #000000;
   --notch-control-surface: rgb(255 255 255 / 8%);
   --notch-thumb-border: #374151;
 }

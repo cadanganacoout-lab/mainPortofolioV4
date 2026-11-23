@@ -2,6 +2,13 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 export const musicTracks = [
   {
+    title: "You are the Reason",
+    artist: "Colum Scott",
+    fileName: "Calum Scott - You Are The Reason (Official Video).mp3",
+    cover: "/images/musiclog/youarethereason.jpg",
+    lyricsFile: "/lyrics/youarethereason.lrc",
+  },
+  {
     title: "8 Letters",
     artist: "Why Don't We",
     fileName: "8 Letters - Why Don't We [Official Music Video].mp3",

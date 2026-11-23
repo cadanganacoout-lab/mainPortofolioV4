@@ -75,12 +75,12 @@ html.dark {
   --color-surface-raised: #899499;
   --color-text-primary: #faf9f6;
   --color-text-secondary: rgba(250, 249, 246, 0.68);
-  --color-accent: #F3F4F6;
-  --color-accent-secondary: #F9F6EE;
-  --color-accent-tertiary: #FAF9F6;
+  --color-accent: #FFBF00;
+  --color-accent-secondary: #FFD700;
+  --color-accent-tertiary: #FFAA33;
   --color-accent-quaternary: #FFFFF0;
   --color-border: color-mix(in srgb, #899499 38%, transparent);
-  --color-focus: #F3F4F6;
+  --color-focus: #FFBF00;
   --color-accent-foreground: #000000;
   --color-background-gradient: linear-gradient(
     135deg,
@@ -103,20 +103,18 @@ html.dark {
     #28282b 90%,
     #353935 100%
   );
-  --color-accent-gradient: linear-gradient(
-    100deg,
-    #F3F4F6 0%,
-    #F9F6EE 25%,
-    #FAF9F6 50%,
-    #FFFFF0 75%,
-    #FFFFF0 100%
+  --color-accent-gradient: conic-gradient(
+    from 0deg,
+    #FFBF00 0deg 90deg,
+    #FFD700 90deg 180deg,
+    #FFAA33 180deg 270deg,
+    #FFFFF0 270deg 360deg
   );
   --color-spiral-gradient: conic-gradient(
-    #F3F4F6 0deg 72deg,
-    #F9F6EE 72deg 144deg,
-    #FAF9F6 144deg 216deg,
-    #FFFFF0 216deg 288deg,
-    transparent 288deg 360deg
+    #FFBF00 0deg 90deg,
+    #FFD700 90deg 180deg,
+    #FFAA33 180deg 270deg,
+    #FFFFF0 270deg 360deg
   );
 
   --page-bg: var(--color-background);

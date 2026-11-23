@@ -23,9 +23,9 @@ base:
 
 ascent:
 
--#F3F4F6 
--#F9F6EE;
--#FAF9F6;
+-#FFBF00 
+-#FFD700;
+-#FFAA33;
 -#FFFFF0
 
 
